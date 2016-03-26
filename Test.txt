@@ -2,4 +2,8 @@ Hello Githup
 
 Hello
 
+<<<<<<< HEAD
 Hello 1
+=======
+Hi! Wit.
+>>>>>>> origin/master
