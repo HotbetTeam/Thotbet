@@ -4,9 +4,8 @@ class Agent extends Controller {
 
     function __construct() {
         parent::__construct();
- 
+
         $this->view->theme = 'manage';
- 
     }
 
     public function index() {
@@ -108,16 +107,51 @@ class Agent extends Controller {
     }
 
     public function user() {
-        $this->view->results = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
 
-        if( $this->format=='json' ){
-            $this->view->render('agent/lists/json');
+        $this->view->currentPage = "member";
+
+        if (!empty($id)) {
+            $item = $this->model->query('member')->get($id);
+            if (empty($item))
+                $this->error();
+
+            $nav[] = array('text' => 'สมาชิก', 'url' => URL . 'member');
+            $nav[] = array('text' => $item['name']);
+            $this->view->nav = $nav;
+
+            $this->view->results = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
+            $this->view->item = $item;
+            // print_r($item); die;
+
+            if ($this->format == 'json') {
+                $this->view->render('agent/profile/lists/json');
+            } else {
+
+                Session::init();
+                Session::set('isPushedLeft', false);
+                $this->view->level = $this->model->query('member')->levelLists();
+                $this->view->elem('body')->addClass('is-overlay-left page-listpage');
+                $this->view->render('agent/profile/display');
+            }
+        } else {
+
+            $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : null;
+            $this->view->results = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
+            print_r($this->view->results);
+            exit();
+            $this->view->status = $status;
+
+            if ($this->format == 'json') {
+                // sleep(1);
+                $this->view->render('member/lists/json');
+            } else {
+
+                $this->view->elem('body')->addClass('hidden-tobar');
+
+                $this->view->statusCounts = $this->model->query('member')->statusCounts();
+                $this->view->render('agent/lists/display');
+            }
         }
-        else{
-            $this->view->render('agent/lists/display');
-        }
-        
-        
     }
 
     // admin manage

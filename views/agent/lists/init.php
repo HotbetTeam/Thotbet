@@ -1,17 +1,22 @@
 <?php
 
+$title[] = array('key' => 'date', 'text' => 'วันที่เพิ่ม', 'sort' => 'm_created');
 
-// $title[] = array('key'=>'check-box', 'text'=> '<label class="checkbox"><input id="checkboxes" type="checkbox"></label>' );
-// $title[] = array('key'=>'star', 'text'=>'');
+if ($this->status != 'verify') {
+    $title[] = array('key' => 'status', 'text' => 'สถานะ');
+    $title[] = array('key' => 'username', 'text' => 'Member Account', 'sort' => 'm_username'); //, 'sort'=>'m.user'
+}
 
-$title[] = array('key'=>'date', 'text'=>'เป็นสมาชิกเมื่อ', 'sort' => 'agent_created');
-// $title[] = array('key'=>'image', 'text'=>'');
-$title[] = array('key'=>'name', 'text'=>'ชื่อ', 'sort' => 'agent_name');
+$title[] = array('key' => 'name', 'text' => 'ชื่อ', 'sort' => 'm_name');
 
-$title[] = array('key'=>'status', 'text'=>'จำนวนสมาชิก', 'sort' => 'agent_total_member');
-$title[] = array('key'=>'date', 'text'=>'แก้ไขล่าสุด', 'sort' => 'agent_updated');
 
-$title[] = array('key'=>'actions', 'text'=>'');
+if ($this->status != 'verify') {
+    $title[] = array('key' => 'status', 'text' => 'ระดับ', 'sort' => 'lev_score');
+    $title[] = array('key' => 'number', 'text' => 'แต้มจริง', 'sort' => 'm_point');
+    $title[] = array('key' => 'number', 'text' => 'แต้มแสดง', 'sort' => 'm_point_show');
+}
+
+$title[] = array('key' => 'action', 'text' => '');
 
 $this->tabletitle = $title;
-$this->getURL =  URL.'manage/agent/';
+$this->getURL = URL . 'member';
