@@ -2,6 +2,14 @@ Hello Githup
 
 Hello
 
+<<<<<<< HEAD
 Hi! Wit.
 
 132
+=======
+<<<<<<< HEAD
+Hello 1
+=======
+Hi! Wit.
+>>>>>>> origin/master
+>>>>>>> origin/master
