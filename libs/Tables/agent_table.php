@@ -1,10 +1,10 @@
 <?php
-	
+    
 class Agent_Table extends Model {
-	
-	public function __construct() {
-		parent::__construct();
-	}
+    
+    public function __construct() {
+        parent::__construct();
+    }
 
     /**/
     /* config Data */
@@ -88,11 +88,13 @@ class Agent_Table extends Model {
 
         return $data;
     }
-    public function convert($result){
-        // $result = array_merge($result, $this->getMember($result['user_id']));
-        
-        $result['image_url'] = IMAGES.'avatar/error/admin.png';
-        return $result;
+    public function convert($data){
+
+        $data['url'] = URL.'manage/agent/'.$data['agent_id'];
+        $data['image_url'] = IMAGES.'avatar/error/admin.png';
+
+
+        return $data;
     }
 
     /* join */

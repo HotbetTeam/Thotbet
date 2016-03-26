@@ -69,4 +69,28 @@ class Manage extends Controller {
         $this->view->render("manage/display");
     }
 
+    public function agent($id=null) {
+
+        $this->view->currentPage = "agent";
+        if( !empty($id) ){
+
+            $item = $this->model->query('agent')->get( $id );
+            if(empty($item)) $this->error();
+
+            $this->view->item = $item;
+            $this->view->render('manage/agent/profile/display');
+        }
+        else{
+            $this->view->results = $this->model->query('agent')->lists();
+
+            if( $this->format=='json' ){
+                $this->view->render('manage/agent/lists/json');
+            }else{
+                
+                $this->view->render("manage/agent/lists/display");
+            }
+        }
+        
+    }
+
 }

@@ -7,8 +7,8 @@ class Member_Table extends Model {
     }
 
     /**/
-    /* get Data */
-    private $field = "    m_username as username
+    /* config Data */
+    public $_field = "  m_username as username
                         , m_password as password
                         , game_user, game_pass
                         , m_created as created
@@ -25,10 +25,9 @@ class Member_Table extends Model {
                         , m_note as note
                         , m_conversation_key_id as conversation_key_id";
 
-    private $sql = "member m INNER JOIN member_level l ON m_level_id=l.lev_id";
-            
-    public function lists($options=array()){
-        $options = array_merge(array(
+    public $_table = "member m INNER JOIN member_level l ON m_level_id=l.lev_id";
+    public function options($options=array()) {
+        return array_merge( array(
             'pager' => isset($_REQUEST['pager'])? $_REQUEST['pager']:1,
             'limit' => isset($_REQUEST['limit'])? $_REQUEST['limit']:50,
             
@@ -41,7 +40,11 @@ class Member_Table extends Model {
             'q' => isset($_REQUEST['q'])? $_REQUEST['q']:null,
             'more' => true
         ), $options);
+    }
 
+    
+    public function lists($options=array()){
+        $options = $this->options( $options );
         // 
         $width_str = "m_created<=:time";
         $width_arr = array( ':time' => date('Y-m-d H:i:s', $options['time']) );
@@ -50,14 +53,14 @@ class Member_Table extends Model {
             ? " AND (m_status!='verify' AND m_status!='cancel')"
             : " AND m_status='{$options['status']}'";
         // 
-        $arr['total'] = $this->db->count( $this->sql, $width_str,  $width_arr );
+        $arr['total'] = $this->db->count( $this->_table, $width_str,  $width_arr );
 
         // 
         $limit = $this->limited($options['limit'], $options['pager']);
         $orderby = $this->orderby( $options['sort_field'], $options['sort'] );
         $width_str = !empty($width_str) ? "WHERE {$width_str}":'';
-        $arr['lists'] = $this->buildFrag( $this->db->select("SELECT {$this->field} FROM {$this->sql} {$width_str} {$orderby} {$limit}", $width_arr ) );
-        //echo "SELECT {$this->field} FROM {$this->sql} {$width_str} {$orderby} {$limit}"; die;
+        $arr['lists'] = $this->buildFrag( $this->db->select("SELECT {$this->_field} FROM {$this->_table} {$width_str} {$orderby} {$limit}", $width_arr ) );
+        //echo "SELECT {$this->_field} FROM {$this->_table} {$width_str} {$orderby} {$limit}"; die;
         // 
         if( ($options['pager']*$options['limit']) >= $arr['total'] ) $options['more']=false;
         $arr['options'] = $options;
@@ -76,7 +79,7 @@ class Member_Table extends Model {
     }
     public function get($id){
 
-        $sth = $this->db->prepare("SELECT {$this->field} FROM {$this->sql} WHERE m_id=:id LIMIT 1");
+        $sth = $this->db->prepare("SELECT {$this->_field} FROM {$this->_table} WHERE m_id=:id LIMIT 1");
         $sth->execute( array(
             ':id' => $id
         ) );
@@ -186,6 +189,11 @@ class Member_Table extends Model {
                     // 'language_code' => $data['locale'],
                     // 'access_id' => 2
                 );
+
+                if( Cookie::get('Agentredirect') ){
+                    $user['m_agent_id'] = Cookie::get('Agentredirect');
+                    Cookie::clear('Agentredirect');
+                }
 
                 $this->insert($user);
                 $user['m_id'] = $this->db->lastInsertId();

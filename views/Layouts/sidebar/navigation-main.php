@@ -35,6 +35,7 @@ echo nav($frist, $this->currentPage);
 #pinnedNav
 // $pinned[] = array('key'=>'topics','text'=>'ข่าวสาร','link'=>URL.'admin/topics','icon'=>'newspaper-o');
 $pinned[] = array('key'=>'member','text'=>'สมาชิก','link'=>URL.'member','icon'=>'users');
+$pinned[] = array('key'=>'agent','text'=>'Agent','link'=>URL.'manage/agent','icon'=>'user-secret');
 $pinned[] = array('key'=>'playing','text'=>'Playing','link'=>URL.'playing','icon'=>'play');
 $pinned[] = array('key'=>'inbox','text'=>'Live Chat','link'=>URL.'inbox','icon'=>'comments-o');
 $pinned[] = array('key'=>'operator','text'=>'Operator','link'=>URL.'operator','icon'=>'headphones');
