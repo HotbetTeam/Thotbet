@@ -14,6 +14,7 @@ class Agent extends Controller {
             header('Location: ' . URL . 'agent/manage');
         }
         $this->view->currentPage = 'agent';
+
         $this->view->elem('body')->addClass('col-x');
         // $this->view->js('casino');
         $this->view->render('agent/index');
@@ -107,10 +108,16 @@ class Agent extends Controller {
     }
 
     public function user() {
-        $this->view->data = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
-        $this->view->currentPage = 'agent';
-        $this->view->elem('body')->addClass('col-x');
-        $this->view->render('agent/user');
+        $this->view->results = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
+
+        if( $this->format=='json' ){
+            $this->view->render('agent/lists/json');
+        }
+        else{
+            $this->view->render('agent/lists/display');
+        }
+        
+        
     }
 
     // admin manage
