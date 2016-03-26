@@ -4,10 +4,17 @@ class Agent extends Controller {
 
     function __construct() {
         parent::__construct();
+<<<<<<< HEAD
         $this->view->theme = 'agent';
+=======
+        $this->view->formatPage = 'manage';
+>>>>>>> origin/master
     }
 
     public function index() {
+        if (!empty($_COOKIE[COOKIE_KEY_AGENT])) {
+            header('Location: ' . URL . 'agent/manage');
+        }
         $this->view->currentPage = 'agent';
         $this->view->elem('body')->addClass('col-x');
         // $this->view->js('casino');
@@ -15,6 +22,9 @@ class Agent extends Controller {
     }
 
     public function register() {
+        if (!empty($_COOKIE[COOKIE_KEY_AGENT])) {
+            header('Location: ' . URL . 'agent/manage');
+        }
         if (!empty($_POST)) {
             $dataPost = $_POST;
             if (filter_var($dataPost['agent_email'], FILTER_VALIDATE_EMAIL)) {
@@ -63,7 +73,6 @@ class Agent extends Controller {
     }
 
     public function login() {
-
         if (!empty($_POST)) {
             $email = $_POST['agent_email'];
             $password = $_POST['agent_password'];
@@ -94,40 +103,51 @@ class Agent extends Controller {
         $this->view->render('agent/banner');
     }
 
-    public function redirect($id) {        
+    public function redirect($id) {
         Cookie::set('Agentredirect', $id, time() + (86400 * 30)); // 30 วัน   
-        header('Location: '.URL.'register');
+        header('Location: ' . URL . 'register');
     }
 
-
+    public function user() {
+        $this->view->data = $this->model->query('agent')->member($_COOKIE[COOKIE_KEY_AGENT]);
+        $this->view->currentPage = 'agent';
+        $this->view->elem('body')->addClass('col-x');
+        $this->view->render('agent/user');
+    }
 
     // admin manage
     public function add() {
-        
+
         $this->view->render('agent/dialog/add_or_edit_form');
     }
-    public function edit($id=null) {
-        if( empty($id) ) $this->_error();
 
-        $item = $this->model->query('agent')->get( $id );
-        if( empty($item) ) $this->error();
+    public function edit($id = null) {
+        if (empty($id))
+            $this->_error();
+
+        $item = $this->model->query('agent')->get($id);
+        if (empty($item))
+            $this->error();
 
         $this->view->item = $item;
         $this->view->render('agent/dialog/add_or_edit_form');
     }
-    public function update($id=null) {
 
-        if( empty($_POST) ) $this->_error();
+    public function update($id = null) {
 
-        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
-        if( !empty($id) ){
-            $item = $this->model->query('agent')->get( $id );
-            if( empty($item) ) $this->error();
+        if (empty($_POST))
+            $this->_error();
+
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
+        if (!empty($id)) {
+            $item = $this->model->query('agent')->get($id);
+            if (empty($item))
+                $this->error();
         }
 
         try {
             $form = new Form();
-            $form   ->post('agent_email')->val('email')
+            $form->post('agent_email')->val('email')
                     ->post('agent_name')
                     ->post('agent_tel')->val('phone_number');
 
@@ -135,118 +155,117 @@ class Agent extends Controller {
             $data = $form->fetch();
 
             // ตรวจสอบ email ซ้ำ
-            if( !empty($item) ){
-                if( $item['agent_email']!=$data['agent_email'] && $this->model->query('agent')->duplicate( $data['agent_email'] ) )
+            if (!empty($item)) {
+                if ($item['agent_email'] != $data['agent_email'] && $this->model->query('agent')->duplicate($data['agent_email']))
                     $arr['error']['agent_email'] = "อีเมล์ไม่สามารถใช้ได้ (อีเมล์นี้ถูกใช้ไปแล้ว)";
             }
-            else if( $this->model->query('agent')->duplicate( $data['agent_email'] ) ){
+            else if ($this->model->query('agent')->duplicate($data['agent_email'])) {
                 $arr['error']['agent_email'] = "อีเมล์ไม่สามารถใช้ได้ (อีเมล์นี้ถูกใช้ไปแล้ว)";
             }
 
             // ตรวจสอบเบอร์โทร ซ้ำ
-            if( !empty($item) ){
-                if( $item['agent_tel']!=$data['agent_tel'] && $this->model->query('agent')->duplicate( $data['agent_tel'] ) )
+            if (!empty($item)) {
+                if ($item['agent_tel'] != $data['agent_tel'] && $this->model->query('agent')->duplicate($data['agent_tel']))
                     $arr['error']['agent_tel'] = "อีเมล์ไม่สามารถใช้ได้ (อีเมล์นี้ถูกใช้ไปแล้ว)";
             }
-            else if( $this->model->query('agent')->duplicate( $data['agent_tel'] ) ){
+            else if ($this->model->query('agent')->duplicate($data['agent_tel'])) {
                 $arr['error']['agent_tel'] = "เบอร์โทรศัพท์ม่สามารถใช้ได้ (เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว)";
             }
 
-            
-            if( isset($_POST['agent_password']) ){
-                if( strlen($_POST['agent_password']) < 4 ){
+
+            if (isset($_POST['agent_password'])) {
+                if (strlen($_POST['agent_password']) < 4) {
                     $arr['error']['agent_tel'] = "รหัสผ่านต้องมี 4 ตัวขึ้นไป";
-                }
-                else{
+                } else {
                     $data['agent_password'] = $_POST['agent_password'];
                 }
             }
-            
-            if( empty($arr['error']) ){
 
-                
-                if( !empty($item) ){
+            if (empty($arr['error'])) {
+
+
+                if (!empty($item)) {
                     // edit
-                    $this->model->query('agent')->update( $id, $data );
+                    $this->model->query('agent')->update($id, $data);
                     $arr['message'] = "แก้ไขข้อมูล Agent เรียบร้อย";
-                }
-                else{
+                } else {
 
                     // insert 
-                    $this->model->query('agent')->insert( $data );
+                    $this->model->query('agent')->insert($data);
                     $id = $data['agent_id'];
                     $arr['message'] = "เพิ่ม Agent เรียบร้อย";
                 }
 
-                $arr['url'] = URL.'manage/agent/'.$id;
+                $arr['url'] = URL . 'manage/agent/' . $id;
             }
-
         } catch (Exception $e) {
             $arr['error'] = $this->_getError($e->getMessage());
         }
 
         echo json_encode($arr);
     }
-    public function change_pass($id=null) {
 
-        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
-        if( $this->format!='json' || empty($id) ) $this->error();
+    public function change_pass($id = null) {
 
-        $item = $this->model->query('agent')->get( $id );
-        if( empty($item) ) $this->error();
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
+        if ($this->format != 'json' || empty($id))
+            $this->error();
+
+        $item = $this->model->query('agent')->get($id);
+        if (empty($item))
+            $this->error();
 
         // 
-        if( !empty($_POST) ){
+        if (!empty($_POST)) {
             try {
                 $form = new Form();
-                $form   ->post('password_new')->val('password', 4)
+                $form->post('password_new')->val('password', 4)
                         ->post('password_confirm');
 
                 $form->submit();
                 $dataPost = $form->fetch();
 
-                if( $dataPost['password_new']!=$dataPost['password_confirm'] ){
+                if ($dataPost['password_new'] != $dataPost['password_confirm']) {
                     $arr['error']['password_confirm'] = 'รหัสผ่านไม่ตรงกัน';
                 }
 
-                if( empty($arr['error']) ){
+                if (empty($arr['error'])) {
 
                     // update
-                    $this->model->query('agent')->update($id, array( 'agent_password' => $dataPost['password_new']) );
+                    $this->model->query('agent')->update($id, array('agent_password' => $dataPost['password_new']));
 
                     $arr['message'] = "แก้ไขข้อมูลเรียบร้อย";
                     // $arr['url'] = 'refresh';
                 }
-
-
             } catch (Exception $e) {
                 $arr['error'] = $this->_getError($e->getMessage());
             }
 
             echo json_encode($arr);
-
-        } else{
+        } else {
             $this->view->item = $item;
             $this->view->render('agent/dialog/change_pass_form');
         }
     }
-    public function del($id=null) {
-        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
-        if( $this->format!='json' || empty($id) ) $this->error();
 
-        $item = $this->model->query('agent')->get( $id );
-        if( empty($item) ) $this->error();
+    public function del($id = null) {
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
+        if ($this->format != 'json' || empty($id))
+            $this->error();
+
+        $item = $this->model->query('agent')->get($id);
+        if (empty($item))
+            $this->error();
 
 
-        if( !empty($_POST) ){
-            
-            $this->model->query('agent')->delete( $id );
+        if (!empty($_POST)) {
+
+            $this->model->query('agent')->delete($id);
             $arr['message'] = "ลบเรียบร้อย";
-            $arr['url'] = URL."manage/agent";
+            $arr['url'] = URL . "manage/agent";
             echo json_encode($arr);
-        }
-        else{
-           
+        } else {
+
             $this->view->item = $item;
             $this->view->render('agent/dialog/del_form');
         }
@@ -254,56 +273,56 @@ class Agent extends Controller {
 
     /**/
     /* live */
-    public function live_update($id=null){
 
-        $id = isset($_REQUEST['id']) ? $_REQUEST['id']: $id;
-        $data['field']= isset($_REQUEST['field']) ? $_REQUEST['field']: null;
-        $data['value'] = isset($_REQUEST['val']) ? $_REQUEST['val']: null;
-        if( $this->format!='json' || empty($id) || empty($data['field']) ) $this->error();
+    public function live_update($id = null) {
 
-        $item = $this->model->query('agent')->get( $id );
-        if( empty($item) ) $this->error();
+        $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : $id;
+        $data['field'] = isset($_REQUEST['field']) ? $_REQUEST['field'] : null;
+        $data['value'] = isset($_REQUEST['val']) ? $_REQUEST['val'] : null;
+        if ($this->format != 'json' || empty($id) || empty($data['field']))
+            $this->error();
+
+        $item = $this->model->query('agent')->get($id);
+        if (empty($item))
+            $this->error();
 
         $form = new Form();
-       
+
         // $arr['error_message'] = $form->check( array('agent_email', 'agent_name', 'agent_tel', 'agent_note'), $data['field'], $data['value'] );
 
-        
-        if( $data['field']=='agent_email' ) {
+
+        if ($data['field'] == 'agent_email') {
 
             $arr['error_message'] = $form->verify('email', $data['value']);
 
-            if( empty($arr['error_message']) ){
+            if (empty($arr['error_message'])) {
 
-                if( $item['agent_email']!=$data['agent_email'] && $this->model->query('agent')->duplicate( $data['agent_email'] ) ){
+                if ($item['agent_email'] != $data['agent_email'] && $this->model->query('agent')->duplicate($data['agent_email'])) {
 
-                   $arr['error_message'] = "อีเมล์ไม่สามารถใช้ได้ (อีเมล์นี้ถูกใช้ไปแล้ว)";
+                    $arr['error_message'] = "อีเมล์ไม่สามารถใช้ได้ (อีเมล์นี้ถูกใช้ไปแล้ว)";
                 }
             }
+        } else if ($data['field'] == 'agent_tel') {
 
-
-        } else if( $data['field']=='agent_tel' ) {
-            
             $arr['error_message'] = $form->verify('phone_number', $data['value']);
-            if( empty($arr['error_message']) ){
+            if (empty($arr['error_message'])) {
 
-                if( $item['agent_tel']!=$data['value'] && $this->model->query('agent')->duplicate( $data['value'] ) ){
+                if ($item['agent_tel'] != $data['value'] && $this->model->query('agent')->duplicate($data['value'])) {
                     $arr['error_message'] = "เบอร์โทรศัพท์ม่สามารถใช้ได้ (เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว)";
                 }
             }
-
         }
 
-        if( empty($arr['error_message']) ){
+        if (empty($arr['error_message'])) {
             // seve 
 
-            $post[ $data['field'] ] = $data['value'];
-            $this->model->query('agent')->update( $id , $post);
+            $post[$data['field']] = $data['value'];
+            $this->model->query('agent')->update($id, $post);
         }
 
         $arr['error'] = !empty($arr['error_message']);
 
-        echo json_encode( $arr );
+        echo json_encode($arr);
     }
 
 }
