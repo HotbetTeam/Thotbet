@@ -193,8 +193,10 @@ class Member_Table extends Model {
                 $this->insert($user);
                 $user['m_id'] = $this->db->lastInsertId();
 
-                if( Cookie::get( COOKIE_KEY_AGENT ) && !empty($user['m_id']) ){
-                    $this->query('agent')->joinMember(Cookie::get( COOKIE_KEY_AGENT ), $user['m_id']);
+                if( Cookie::get('Agentredirect') && !empty($user['m_id']) ){
+
+                    $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $user['m_id']);
+                    Cookie::clear('Agentredirect');
                 }
 
                 // update picture
@@ -248,11 +250,8 @@ class Member_Table extends Model {
         $this->db->insert('member', $data);
         $data['m_id'] = $this->db->lastInsertId();
 
-
-        if( Cookie::get('Agentredirect') && !empty($data['m_id']) ){
-
-            $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $data['m_id']);
-            Cookie::clear('Agentredirect');
+        if( Cookie::get( COOKIE_KEY_AGENT ) && !empty($data['m_id']) ){
+            $this->query('agent')->joinMember(Cookie::get( COOKIE_KEY_AGENT ), $data['m_id']);
         }
     }
     public function update($id, $data) {
