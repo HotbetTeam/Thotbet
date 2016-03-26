@@ -4,11 +4,9 @@ class Agent extends Controller {
 
     function __construct() {
         parent::__construct();
-<<<<<<< HEAD
-        $this->view->theme = 'agent';
-=======
-        $this->view->formatPage = 'manage';
->>>>>>> origin/master
+ 
+        $this->view->theme = 'manage';
+ 
     }
 
     public function index() {
