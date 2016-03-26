@@ -190,13 +190,12 @@ class Member_Table extends Model {
                     // 'access_id' => 2
                 );
 
-                if( Cookie::get('Agentredirect') ){
-                    $user['m_agent_id'] = Cookie::get('Agentredirect');
-                    Cookie::clear('Agentredirect');
-                }
-
                 $this->insert($user);
                 $user['m_id'] = $this->db->lastInsertId();
+
+                if( Cookie::get( COOKIE_KEY_AGENT ) && !empty($user['m_id']) ){
+                    $this->query('agent')->joinMember(Cookie::get( COOKIE_KEY_AGENT ), $user['m_id']);
+                }
 
                 // update picture
                 /*if( empty( $user['profile_image_url'] ) && !empty($data['image_url']) ){
@@ -248,6 +247,13 @@ class Member_Table extends Model {
         
         $this->db->insert('member', $data);
         $data['m_id'] = $this->db->lastInsertId();
+
+
+        if( Cookie::get('Agentredirect') && !empty($data['m_id']) ){
+
+            $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $data['m_id']);
+            Cookie::clear('Agentredirect');
+        }
     }
     public function update($id, $data) {
 

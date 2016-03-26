@@ -142,6 +142,15 @@ class Agent_Table extends Model {
         } return array();
     }
 
+    public function joinMember($id, $mid) {
+        $agent = $this->get( $id );
+
+        if( !empty($agent) ){
+            $this->update($id, array('agent_total_member' => $agent['agent_total_member']++ ));
+            $this->query('member')->update( $mid, array('m_agent_id'=>$id) );
+        }
+    }
+
     /* ตรวจสอบข้อมูล */
 
     /* login */
