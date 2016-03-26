@@ -114,10 +114,9 @@ class Agent extends Controller {
             $this->view->render('agent/lists/json');
         }
         else{
-            $this->view->render('agent/lists/display');
+            $this->view->render('genat/lists/display');
         }
-        
-        
+
     }
 
     // admin manage
