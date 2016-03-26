@@ -4,7 +4,7 @@ class Agent extends Controller {
 
     function __construct() {
         parent::__construct();
-        $this->view->formatPage = 'agent';
+        $this->view->theme = 'agent';
     }
 
     public function index() {

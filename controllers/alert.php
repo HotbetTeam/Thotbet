@@ -5,8 +5,6 @@ class Alert extends Controller {
     function __construct() {
         parent::__construct();
 
-        // $this->view->formatPage = 'manage';
-        
     }
     
     public function index() {

@@ -4,6 +4,7 @@ class Sport extends Controller {
 
     function __construct() {
         parent::__construct(); 
+        
         $this->view->currentPage = 'sportOnline';
         $this->view->elem('body')->addClass('col-x');
     }

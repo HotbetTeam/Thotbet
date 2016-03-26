@@ -5,7 +5,7 @@ class Manage extends Controller {
     function __construct() {
         parent::__construct();
 
-        $this->view->formatPage = 'manage';
+        $this->view->theme = 'manage';
 
         $this->view->currentPage = "manage";
         $this->view->elem('body')->addClass('hidden-tobar settings-page');

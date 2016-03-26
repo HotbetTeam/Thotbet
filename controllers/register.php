@@ -60,7 +60,13 @@ class Register extends Controller {
                     foreach ($dataPost as $key => $value) {
                         $post['m_'.$key] = $value;
                     }
-                    // print_r($post); die;
+
+                    if( Cookie::get('Agentredirect') ){
+                        $post['m_agent_id'] = Cookie::get('Agentredirect');
+                        Cookie::clear('Agentredirect');
+
+                        // $this->model->query('agent')->
+                    }
 
                     $this->model->query('member')->insert( $post );
 

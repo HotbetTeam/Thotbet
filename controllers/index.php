@@ -4,8 +4,6 @@ class Index extends Controller {
 
     function __construct() {
         parent::__construct();
-
-        $this->view->formatPage = 'home';
     }
     
     function index() {

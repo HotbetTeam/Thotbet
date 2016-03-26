@@ -4,7 +4,7 @@ class View {
 
     public $pageOptions = array();
     public $currentPage = '';
-    public $formatPage = 'gafault';
+    public $theme = 'default';
 
     public function setPageOptions($key, $value = true) {
         $this->pageOptions[$key] = $value;
@@ -30,15 +30,14 @@ class View {
             # start: doc
             echo '<div id="doc">';
 
-            if ($this->formatPage == 'manage') {
-                $this->getPageManage($name);
-            } if ($this->formatPage == 'agent') {
-                $this->getPageAgent($name);
-            } elseif (in_array($this->formatPage, array('login'))) {
-                $this->getPageFull($name);
-            } else {
-                $this->getPageDafault($name);
-            }
+                if( !in_array($this->theme, array('manage')) ){
+                    $this->theme = "dafault";
+                }elseif( in_array($this->theme, array('login')) ){
+                    $this->theme = "full";
+                }
+
+                $themeName = "getTheme_{$this->theme}";
+                $this->{$themeName}( $name );
 
             # end: doc
             echo '</div>';
@@ -48,7 +47,7 @@ class View {
         }
     }
 
-    public function getPageFull($name) {
+    public function getTheme_full($name) {
 
         # content
         echo '<div id="container"><div id="content">';
@@ -56,7 +55,7 @@ class View {
         echo '</div></div>';
     }
 
-    public function getPageManage($name) {
+    public function getTheme_manage($name) {
 
         # banners
         // require "views/Layouts/banners/default.php";
@@ -81,21 +80,7 @@ class View {
         echo '</div></div>';
     }
 
-    public function getPageAgent($name) {
-
-        # banners
-        // require "views/Layouts/banners/default.php";
-        # topbar
-        require "views/Layouts/topbar/agent.php";
-
-        echo '<div id="page-container"><div id="page-main">';
-        require 'views/' . $name . '.php';
-        echo '</div></div>';
-
-                    
-    }
-
-    private function getPageDafault($name) {
+    private function getTheme_dafault($name) {
 
         # topbar
         require "views/Layouts/topbar/default.php";
@@ -116,7 +101,7 @@ class View {
 
         if (!empty($this->me)) {
 
-            if ($this->formatPage == 'home' && empty($this->me['phone_number'])) {
+            if ($this->theme == 'home' && empty($this->me['phone_number'])) {
                 echo '<div data-alert data-load="' . URL . 'alert/up/phone_number/"></div>';
             }
         }
@@ -124,7 +109,7 @@ class View {
 
     public function initPage() {
 
-        if ($this->formatPage == 'manage') {
+        if ($this->theme == 'manage') {
             $this->elem('body')->addClass('blackSide'); //balance
             // $this->elem('body')->addClass('is-pushed-left');
 
@@ -145,7 +130,7 @@ class View {
             }
 
             $this->css('manage')->js('manage');
-        } elseif (in_array($this->formatPage, array('login'))) {
+        } elseif (in_array($this->theme, array('login'))) {
             $this->css('manage');
         } else {
             $this->css('main')->js('main');

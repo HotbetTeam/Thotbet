@@ -5,7 +5,7 @@ class Operator extends Controller {
     function __construct() {
         parent::__construct();
 
-        $this->view->formatPage = 'manage';
+        $this->view->theme = 'manage';
     }
 
     public function index() {
