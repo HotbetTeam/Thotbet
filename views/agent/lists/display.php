@@ -1,4 +1,8 @@
-<?php require_once 'init.php'; ?>
+<?php
+
+require 'init.php';
+
+?>
 
 <div class="listpage has-loading" data-plugins="listpage" data-options="<?= $this->fn->stringify( array_merge( array(
 	'url' => $this->getURL,
