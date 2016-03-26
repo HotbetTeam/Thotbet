@@ -15,7 +15,7 @@
 				<!-- <li><i class="icon-comments-o mrs"></i><a class="link js-live-chat" href="#">Live Chat</a></li> -->
 			</ul>
 		</div>
-		<?php if(!empty($this->me)){ ?>
+		<?php if(!empty($this->me['m_id'])){ ?>
 		<div class="rfloat">
 			<ul class="nav">
 				<!-- <li><i class="icon-question-circle mrs"></i><a class="link" href="#">ช่วยเหลือ</a></li> -->

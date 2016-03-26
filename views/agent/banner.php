@@ -1,4 +1,6 @@
-<div style=" margin: auto;background: #ffffff;padding: 30px;color: #000">
+<div id="mainContainer" class="clearfix" data-plugins="main">
+
+<div role="content"><div role="main"><div class="pal mal">
     สร้างบล๊อคโฆษณา
     <hr/>
     เลือกขนาด
@@ -46,4 +48,7 @@
             }
         });
     </script>
+
+</div></div></div>
+
 </div>

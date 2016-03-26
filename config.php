@@ -1,6 +1,6 @@
 <?php
 
-define('PAGE_TITLE', 'HOTBAT CASINO');
+define('PAGE_TITLE', 'Hotbet.casino');
 define('PAGE_ADDRESS', '');
 define('PAGE_ANCHOR_DATE', 2016);
 

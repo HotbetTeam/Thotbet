@@ -54,12 +54,12 @@ class Val {
 
     public function username($data, $arg = 4) {
 
-        if (strlen($data) < $arg)
+        if (strlen($data) < $arg){
             return "ชื่อผู้ใช้ไม่ถูกต้อง! ต้องมีความยาว $arg ตัวอักษรขึ้นไป";
-
-        $pattern = "^[[:alnum:]]([a-zA-Z0-9/.?]{3,14})$";
-        if (!@ereg($pattern, $data))
+        }
+        else if (!@ereg("^[[:alnum:]]([a-zA-Z0-9/.?]{3,14})$", $data)){
             return 'เว้นว่างไม่ได้ ต้องเป็นตัวอักษรภาษาอังกฤษและตัวเลขอารบิกเท่านั้น';
+        }
     }
 
     public function name($string){

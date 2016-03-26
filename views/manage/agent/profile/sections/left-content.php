@@ -48,16 +48,14 @@ $form = $f->create()
 
 <div class="profile-left-details form-insert-people" role="leftContent">
 
-	<!-- <div class="pal">
+	<div class="phl mvl">
 		<ul class="profile-left-summary">
-			<li><strong>แต้มแสดง:</strong> <?=$this->item['point_show']?></li>
-			<li><strong>แต้มจริง:</strong> <?=$this->item['point']?></li>
-			<li><strong>เป็นสมาชิกเมื่อ:</strong> <?= $this->fn->q('time')->normal( strtotime( $this->item['created'] ) ) ?></li>
-			<li><strong>แก้ไขข้อมูลล่าสุด:</strong> <?= $this->fn->q('time')->stamp( $this->item['updated'] ) ?></li>
+			<li><strong>เป็นสมาชิกเมื่อ:</strong> <?= $this->fn->q('time')->normal( strtotime( $this->item['agent_created'] ) ) ?></li>
+			<li><strong>แก้ไขข้อมูลล่าสุด:</strong> <?= $this->fn->q('time')->stamp( $this->item['agent_updated'] ) ?></li>
 		</ul>
-	</div> -->
+	</div>
 	
-	<div class="pal">
+	<div class="phl mvl">
 		<?=$form->html()?>
 	</div>
 	

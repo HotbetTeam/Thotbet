@@ -4,7 +4,8 @@ class Controller {
 
     public $format = "html";
     public $pathName = "";
-    public $logPage = array('inbox', 'member', 'playing', 'manage', 'operator', 'users');
+    public $adminLogPage = array('inbox', 'member', 'playing', 'manage', 'operator');
+
 
     function __construct() {
 
@@ -51,129 +52,107 @@ class Controller {
     public function handleLogin() {
         // Session::init();
         // admin
-        if (in_array($this->pathName, $this->logPage)) {
 
+        if (Cookie::get(COOKIE_KEY_ADMIN)) {
+            $me = $this->model->getUser( Cookie::get(COOKIE_KEY_ADMIN) );
+        }
+        else if(Cookie::get(COOKIE_KEY_AGENT)){
+            $me = $this->model->query('agent')->get(Cookie::get(COOKIE_KEY_AGENT));
+        }
+        else if (Cookie::get(COOKIE_KEY)) {
+            $me = $this->model->query('member')->get(Cookie::get(COOKIE_KEY));
+        }
+
+        if (!empty($me)) {
+            $this->me = $me;
+            $this->model->me = $this->me;
+            $this->view->me = $this->me;
+
+            // update Cookie
             if (Cookie::get(COOKIE_KEY_ADMIN)) {
-                $me = $this->model->getUser(Cookie::get(COOKIE_KEY_ADMIN));
+                Cookie::set(COOKIE_KEY_ADMIN, $this->me['user_id'], time() + (86400 * 30));
             }
-
-            if (!empty($me)) {
-                $this->me = $me;
-                $this->model->me = $this->me;
-                $this->view->me = $this->me;
-
-                Cookie::set(COOKIE_KEY_ADMIN, $this->me['user_id']);
-            } else {
-                $this->login('admin');
+            else if(Cookie::get(COOKIE_KEY_AGENT)){
+                Cookie::set(COOKIE_KEY_AGENT, $this->me['agent_id'], time() + (86400 * 30));
+            }
+            else if (Cookie::get(COOKIE_KEY)) {
+                Cookie::set(COOKIE_KEY, $this->me['m_id'], time() + (86400 * 30));
             }
         }
-        // member
-        else {
+        else{
+            $this->view->elem('body')->addClass('loggedOut');   
+        }
 
-            if (Cookie::get(COOKIE_KEY)) {
-                $me = $this->model->query('member')->get(Cookie::get(COOKIE_KEY));
-            }
-
-            if (!empty($me)) {
-                $this->me = $me;
-                $this->model->me = $this->me;
-                $this->view->me = $this->me;
-                Cookie::set(COOKIE_KEY, $this->me['m_id']);
-
-                if ($this->pathName == 'login') {
-                    header("Location:" . URL);
-                }
-            } else {
-                $this->view->elem('body')->addClass('loggedOut');
-            }
+        if( in_array($this->pathName, $this->adminLogPage) && empty($this->me['user_id']) ){
+            $this->login('admin');
+        }
+        else if( empty($this->me['m_id']) ){
+            $this->view->elem('body')->addClass('loggedOut');   
         }
     }
 
-    public function login($page = '') {
+    public function login() {
 
-        if (in_array($this->pathName, $this->logPage)) {
-            Session::init();
-            $attempt = Session::get('login_attempt');
+        Session::init();
+        $attempt = Session::get('login_attempt');
 
-            if (isset($attempt) && $attempt >= 2) {
-                // $this->view->captcha = true;   
-            } elseif (empty($attempt)) {
-                $attempt = 0;
-                Session::set('login_attempt', $attempt);
-            }
+        if (isset($attempt) && $attempt >= 2) {
+            // $this->view->captcha = true;  
+        } elseif (empty($attempt)) {
+            $attempt = 0;
+            Session::set('login_attempt', $attempt);
         }
 
-        $path_admin = !empty($_REQUEST['path_admin']) ? $_REQUEST['path_admin'] : false;
         if (!empty($_POST)) {
 
             try {
                 $form = new Form();
 
-                $form->post('email')->val('is_empty')
+                $form   ->post('email')->val('is_empty')
                         ->post('pass')->val('is_empty');
 
                 $form->submit();
                 $post = $form->fetch();
 
-                // admin
-                if (in_array($this->pathName, $this->logPage) || $path_admin) {
+                $id = $this->model->query('users')->login($post['email'], $post['pass']);
 
-                    $id = $this->model->query('users')->login($post['email'], $post['pass']);
+                if (!empty($id)) {
 
-                    if (!empty($id)) {
-
-                        Cookie::set(COOKIE_KEY_ADMIN, $id);
-
-                        if (isset($attempt)) {
-                            Session::clear('login_attempt');
-                        }
-
-                        $url = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
-
-                        header('Location: ' . $url);
-                    } else {
-
-                        if (!$this->model->query('users')->is_user($post['email'])) {
-                            $error['email'] = 'ชื่อผู้ใช้ไม่ถูกต้อง';
-                        } else {
-                            $error['pass'] = 'รหัสผ่านไม่ถูกต้อง';
-                        }
+                    if(Cookie::get(COOKIE_KEY_AGENT)){
+                        Cookie::clear( COOKIE_KEY_AGENT );
                     }
-                }
-                // member
-                else {
 
-                    if ($post['pass'] == '')
-                        $post['pass'] = HASH_PASSWORD_KEY;
-                    $id = $this->model->query('member')->login($post['email'], $post['pass']);
-                    if (!empty($id)) {
+                    if (Cookie::get(COOKIE_KEY)) {
+                        Cookie::clear( COOKIE_KEY );
+                    }
 
-                        Cookie::set(COOKIE_KEY, $id);
+                    Cookie::set(COOKIE_KEY_ADMIN, $id, time() + (86400 * 30));
 
-                        $url = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
+                    /*if (isset($attempt)) {
+                        Session::clear('login_attempt');
+                    }*/
 
-                        header('Location: ' . $url);
+                    $url = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
+
+                    header('Location: ' . $url);
+                } else {
+
+                    if (!$this->model->query('users')->is_user($post['email'])) {
+                        $error['email'] = 'ชื่อผู้ใช้ไม่ถูกต้อง';
                     } else {
-
-                        if (!$this->model->query('member')->is_user($post['email'])) {
-                            $error['email'] = 'ชื่อผู้ใช้ไม่ถูกต้อง';
-                        } else {
-                            $error['pass'] = 'รหัสผ่านไม่ถูกต้อง';
-                        }
+                        $error['pass'] = 'รหัสผ่านไม่ถูกต้อง';
                     }
                 }
 
-                $post['pass'] = "";
-                $this->view->post = $post;
+
             } catch (Exception $e) {
                 $error = $this->_getError($e->getMessage());
             }
         }
 
-
         if (!empty($error)) {
 
-            if (in_array($this->pathName, $this->logPage)) {
+            if (in_array($this->pathName, $this->adminLogPage)) {
                 $attempt++;
                 Session::set('login_attempt', $attempt);
             }
@@ -181,19 +160,16 @@ class Controller {
             $this->view->error = $error;
         }
 
-        $this->view->next = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
-
-
-        $this->view->elem('body')->addClass('login_page');
-        if (in_array($this->pathName, $this->logPage) || $path_admin) {
-            $this->view->css('login');
-            $this->view->setPageOptions('topbar', false);
-            $this->view->formatPage = 'login';
-            $this->view->render("Layouts/page/login");
-        } else {
-            $this->view->render("member/login");
+        if(!empty($post) ){
+            $this->view->post = $post;
         }
 
+        $this->view->next = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
+        $this->view->css('login');
+        $this->view->setPageOptions('topbar', false);
+        $this->view->theme = 'login';
+        $this->view->render("Layouts/page/login");
+    
         exit;
     }
 

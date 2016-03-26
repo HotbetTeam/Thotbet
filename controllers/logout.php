@@ -29,16 +29,34 @@ class Logout extends Controller {
         if( empty($this->me) ){
             header('location:' . $url );
         }
-
-        /*Session::init();
-        Session::destroy();*/
-
+        
         $url = !empty($_REQUEST['next'])
             ? $_REQUEST['next']
             : $url;
 
         Cookie::clear( COOKIE_KEY_ADMIN );
         header('location:' . $url);
+    }
+
+    public function agent() {
+        $url = URL.'agent';
+
+        if( $this->format == 'json' ){
+            $this->view->render('agent/dialog/confirm_logout');
+            exit;
+        }
+
+        if( empty($this->me) ){
+            header('location:' . $url );
+        }
+
+        $url = !empty($_REQUEST['next'])
+            ? $_REQUEST['next']
+            : $url;
+
+        Cookie::clear( COOKIE_KEY_AGENT );
+        header('location:' . $url);
+
     }
 
 }

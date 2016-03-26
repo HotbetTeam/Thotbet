@@ -2259,3 +2259,10 @@ ul.lists>li{
 .loggedOut .top-clock-date{
     display: block;
 }
+
+
+
+.sign-up-form-v1-hero {
+    padding: 45px 25px 64px;
+    box-sizing: border-box;
+}

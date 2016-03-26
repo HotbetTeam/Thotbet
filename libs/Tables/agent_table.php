@@ -104,7 +104,6 @@ class Agent_Table extends Model {
 
     /* join */
     /* member */
-
     public function member($aid, $options = array()) {
         $options = $this->query('member')->options($options);
         $date = date('Y-m-d H:i:s', $options['time']);
@@ -112,7 +111,19 @@ class Agent_Table extends Model {
         $where_str = "m_created<=:time";
         $where_arr = array(':time' => $date);
 
-        $where_str .= empty($options['status']) || $options['status'] == 'all' ? " AND (m.status!='verify' AND m.status!='cancel')" : " AND m.status='{$options['status']}'";
+        $where_str .= empty($options['status']) || $options['status']=='all'
+            ? " AND (m_status!='verify' AND m_status!='cancel')"
+            : " AND m_status='{$options['status']}'";
+
+        $where_str = "m_agent_id=:agentID";
+        $where_arr = array(':agentID' => $aid);
+
+        if( !empty($options['q']) ){
+            $where_str .= !empty( $where_str ) ? " AND ":'';
+            $where_str .= "(m_name LIKE :q OR m_username=:qFull)";
+            $where_arr[':q'] = "%{$options['q']}%";
+            $where_arr[':qFull'] = "{$options['q']}";
+        }
 
         $arr['total'] = $this->db->count($this->query('member')->_table, $where_str, $where_arr);
 
@@ -142,12 +153,24 @@ class Agent_Table extends Model {
         } return array();
     }
 
+    public function getCountStatus($status){
+        return $this->db->count('member', "m_status=:t", array(':t'=>$status));
+    }
+
     public function joinMember($id, $mid) {
         $agent = $this->get( $id );
 
         if( !empty($agent) ){
-            $this->update($id, array('agent_total_member' => $agent['agent_total_member']++ ));
+
+            $this->update($id, array('agent_total_member' => ++$agent['agent_total_member'] ));
             $this->query('member')->update( $mid, array('m_agent_id'=>$id) );
+        }
+    }
+    public function delMember($id, $mid) {
+        $agent = $this->get( $id );
+
+        if( !empty($agent) ){
+            $this->update($id, array('agent_total_member' => --$agent['agent_total_member'] ));
         }
     }
 

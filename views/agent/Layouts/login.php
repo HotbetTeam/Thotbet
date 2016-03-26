@@ -4,25 +4,22 @@ $f = new Form();
 $form = $f->create()
     
     // attr, options
-    ->addClass('login-form-container form-insert form-large')
+    ->addClass('login-form-container form-insert form-large js-submit-form')
     ->method('post')
     ->url(URL.'agent/login')
 
     // set field
     ->field("email")
-        ->placeholder("username or email")
         ->addClass('inputtext')
         ->required(true)
         ->autocomplete("off")
-        ->value( !empty($this->post['email'])? $this->post['email'] : '' )
-        ->notify( !empty($this->error['email']) ? $this->error['email'] : '' )
+        ->placeholder("Phone or Email")
 
     ->field("pass")
         ->type('password')
         ->required(true)
         ->addClass('inputtext')
-        ->placeholder("password")
-        ->notify( !empty($this->error['pass']) ? $this->error['pass'] : '' );
+        ->placeholder("Password");
 
 
     if( !empty($this->captcha) ){
@@ -38,14 +35,10 @@ $form = $f->create()
         : '' 
     )
 
-    ->hr('<input type="hidden" autocomplete="off" value="1" name="path_admin">' )
-
-    
-
     ->submit()
         ->addClass('btn btn-blue btn-submit btn-large')
         
-        ->value('เข้าสู่ระบบ')
+        ->value('Login')
 
     ->button()
         ->addClass('btn btn-link btn-large fsm or')
@@ -63,7 +56,7 @@ $form = $f->create()
 
         <div class="login-header-bar login-logo">
             <div class="text">
-                <h2 >Agent <span><?=PAGE_TITLE?></span><a href="<?=URL?>agent" style="color:#fff"><i class="icon-home mrs"></i>หน้าแรก</a></h2>
+                <h2 >Agent - <span><?=PAGE_TITLE?></span><a href="<?=URL?>agent" style="color:#fff"><i class="icon-home mrs"></i>Home</a></h2>
             </div>
             <div class="subtext"><?=PAGE_ADDRESS?></div>
         </div>
@@ -72,7 +65,7 @@ $form = $f->create()
 
             <div class="login-container">
                 
-                <div class="login-title">ลงชื่อเข้าใช้ Agent</div>
+                <div class="login-title">Login Agent</div>
 
                 <?=$form->html()?>
             

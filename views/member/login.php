@@ -24,7 +24,7 @@ $form = $f->create()
         ->required(true)
         ->addClass('inputtext')
         // ->placeholder("รหัสผ่าน")
-        ->value( !empty($this->post['pass'])? $this->post['pass'] : '' )
+        // ->value( !empty($this->post['pass'])? $this->post['pass'] : '' )
         ->notify( !empty($this->error['pass']) ? $this->error['pass'] : '' )
 
     ->hr( !empty($this->next)

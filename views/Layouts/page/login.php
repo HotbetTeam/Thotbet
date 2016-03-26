@@ -4,13 +4,13 @@ $f = new Form();
 $form = $f->create()
     
     // attr, options
-    ->addClass('login-form-container standard form-insert form-large')
+    ->addClass('login-form-container form-insert form-large')
     ->method('post')
-    ->url(URL.'login')
+    ->url(URL.'manage')
 
     // set field
     ->field("email")
-        ->placeholder("ชื่อผู้ใช้")
+        ->placeholder("username or email")
         ->addClass('inputtext')
         ->required(true)
         ->autocomplete("off")
@@ -21,8 +21,7 @@ $form = $f->create()
         ->type('password')
         ->required(true)
         ->addClass('inputtext')
-        ->placeholder("รหัสผ่าน")
-        ->value( !empty($this->post['pass'])? $this->post['pass'] : '' )
+        ->placeholder("password")
         ->notify( !empty($this->error['pass']) ? $this->error['pass'] : '' );
 
 
@@ -46,16 +45,18 @@ $form = $f->create()
         ->value('เข้าสู่ระบบ');
 
 ?>
+
 <div class="bgs">
-    <div class="bg" style="background-image: url(<?=IMAGES?>carousel/c10-1.jpg);display: block;"></div>
+    <div class="bg" style="background-image: url(<?=IMAGES?>carousel/c4.jpg);display: block;"></div>
 </div>
 
 <div class="section">
     <div class="content-wrapper<?=!empty($this->captcha)? ' has-captcha':''?>">
 
         <div class="login-header-bar login-logo">
-            <img src="<?=IMAGES?>bgs/icon-login.png">
-            <h2 class="text"><?=PAGE_TITLE?></h2>
+            <div class="text">
+                <h2 >Admin <span><?=PAGE_TITLE?></span><a href="<?=URL?>"><i class="icon-home mrs"></i>หน้าแรก</a></h2>
+            </div>
             <div class="subtext"><?=PAGE_ADDRESS?></div>
         </div>
 
@@ -63,7 +64,7 @@ $form = $f->create()
 
             <div class="login-container">
                 
-                <div class="login-title">ลงชื่อเข้าใช้</div>
+                <div class="login-title">ลงชื่อเข้าใช้ Admin</div>
 
                 <?=$form->html()?>
             
@@ -72,21 +73,6 @@ $form = $f->create()
         </div>
     </div>
 <!-- /content-wrapper -->
-
-<div class="bg-bubbles-wrapper hidden_elem">
-<ul class="bg-bubbles">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-</ul>
-</div>
 
 </div>
 <!-- /section -->

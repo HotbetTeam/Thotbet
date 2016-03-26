@@ -63,6 +63,9 @@ body :-ms-input-placeholder {
    color: #fff; 
 }
 .login-logo .text{
+
+}
+.login-logo .text h2{
     /*
     font-size:3em;
     padding-top: 100px;
@@ -70,11 +73,29 @@ body :-ms-input-placeholder {
     text-shadow:0 1px 1px rgba(0,0,0,.2);
 
     font-size: 40px;
+    line-height: 40px;
     -webkit-transition-duration: 1s;
     transition-duration: 1s;
     -webkit-transition-timing-function: ease-in-put;
     transition-timing-function: ease-in-put;
     font-weight: 200;
+
+    letter-spacing: -1px;
+    position: relative;
+    /*color: #3f3f3f;*/
+    text-shadow: 3px 3px rgba(0,0,0,0.15);
+    display: inline-block;
+}
+.login-logo .text a{
+    font-size: 13px;
+    line-height: 1.28;
+    position: absolute;
+    top: 0;
+    margin-top: -15px;
+    right: 0;
+    color: #000;
+    font-style: italic;
+    text-decoration: none;
 }
 .login-logo .subtext{
     margin-top: 10px;
@@ -88,7 +109,7 @@ body :-ms-input-placeholder {
 
     /*text-shadow: 0 1px 0 rgba(0,0,0,.2);
     color: #fff;*/
-
+    
 }
 /*
 .login-container .control-group .inputtext{
@@ -118,8 +139,13 @@ body :-ms-input-placeholder {
     margin-top: 20px;
 }
 .login-form-container .form-actions .btn{
-  border-radius: 18px;
+  border-radius: 3px;
   padding: 0 20px;
+}
+.form-actions .btn.or{
+    position: absolute;
+    padding: 0;
+    margin-left: 15px;
 }
 
 .bgs {
@@ -146,7 +172,7 @@ body :-ms-input-placeholder {
     background-size: cover;
     background-position: center center;
 }
-.bgs .bg:before{
+.bgs.t .bg:before{
     content: '';
     position: fixed;
     width: 100%;
@@ -155,6 +181,13 @@ body :-ms-input-placeholder {
     left: 0;
     background-repeat: repeat;
     background-image: url('../images/bgs/pattern-3.png');
+}
+.o.bgs{
+    background-color: #000
+}
+.o.bgs .bg{
+    -webkit-filter: blur(7px);
+    opacity: .3;
 }
 
 /*.standard .inputtext{
@@ -192,12 +225,17 @@ body{
     width: 840px;
     left: 50%;
     margin-left: -420px;
-    height: 480px;
+    height: 380px;
+    margin-top: -190px;
     position: relative;
     top: 50%;
-    margin-top: -240px;
     z-index: 300
 }
+.y3 .content-wrapper{
+    height: 420px;
+    margin-top: -220px;
+}
+
 .has-captcha.content-wrapper{
   height: 454px;
   margin-top: -227px;
@@ -358,25 +396,25 @@ body{
 }*/
 
 
-.login-container-wrapper{
+.standard.content-wrapper .login-container-wrapper{
     background-color: transparent;
     box-shadow: none;
 }
-.login-container .login-title{
+.standard.content-wrapper .login-container .login-title{
     color: #fff;
     text-shadow:0 1px 1px rgba(0,0,0,.5);
 }
-.form-large .control-group .inputtext{
+.standard.content-wrapper .form-large .control-group .inputtext{
     background-color: rgba(0,0,0,.2);
     border-radius: 4px;
     color: #fff;
     box-shadow: inset 0 1px 2px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,1);
     border-width:0;
 }
-.form-large .control-group .inputtext:focus{
+.standard.content-wrapper .form-large .control-group .inputtext:focus{
     box-shadow: inset 0 1px 2px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,1), 0 0 0 3px rgba(255,255,255,.15);
 }
-.login-form-container .form-actions .btn{
+.standard.content-wrapper .login-form-container .form-actions .btn{
     width: 100%;
      border-radius: 4px;
      background-color: #ff7a3c;
@@ -399,7 +437,7 @@ body{
 
     box-shadow:0px 1px 3px rgba(0,0,0,.3), inset 0 0 2px rgba(255,255,255,.4); 
 }
-.login-form-container .form-actions .btn:hover{
+.standard.content-wrapper .login-form-container .form-actions .btn:hover{
     background:-webkit-linear-gradient(top,#ff995a 50%, #ff904e 50%, #ff642c 100%);
     background:-moz-linear-gradient(top,#ff995a 50%, #ff904e 50%, #ff642c 100%);
     background:-ms-linear-gradient(top,#ff995a 50%, #ff904e 50%, #ff642c 100%);
@@ -407,12 +445,12 @@ body{
     background:linear-gradient(top,#ff995a 50%, #ff904e 50%, #ff642c 100%);
 }
 
-.form-large .control-group.has-error .notification, .signin-screen .control-group.has-error .notification{
+.standard.content-wrapper .form-large .control-group.has-error .notification, .signin-screen .control-group.has-error .notification{
     border-radius: 3px;
     background-color: #e74c3c;
     color: #fff;
     height: 40px;
     line-height: 38px;
     font-size: 15px;
-        top: 0px;
+    top: 0px;
 }

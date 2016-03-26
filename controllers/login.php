@@ -8,34 +8,60 @@ class Login extends Controller {
 
     public function index(){
     	
-    	// $this->view->render('index/login');
-    	$this->login();
-    }
+        if (!empty($_POST)) {
 
-    /*public function facebook(){
+            try {
+                $form = new Form();
 
-        if( empty($_POST) && $this->format!='json') $this->_error();
+                $form   ->post('email')->val('is_empty')
+                        ->post('pass')->val('is_empty');
 
-        $data = $_POST;
-        if( !empty($data['email']) ){
+                $form->submit();
+                $post = $form->fetch();
 
-            $arr['next'] = isset($_REQUEST['next'])? $_REQUEST['next']: null;
-            $user = $this->model->query("users")->loginFB( $data );
-            Cookie::set( COOKIE_KEY , $user['user_id'], time()+86400);
+                $id = $this->model->query('member')->login($post['email'], $post['pass']);
 
-            if( !empty($arr['next']) ){
-                $arr['url'] = $arr['next'];
+                if (!empty($id)) {
+
+                    if (Cookie::get(COOKIE_KEY_ADMIN)) {
+                        Cookie::clear( COOKIE_KEY_ADMIN );
+                    }
+
+                    if(Cookie::get(COOKIE_KEY_AGENT)){
+                        Cookie::clear( COOKIE_KEY_AGENT );
+                    } 
+
+                    Cookie::set(COOKIE_KEY, $id, time() + (86400 * 30));
+
+                    $url = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
+                    header('Location: ' . $url);
+                }
+                else {
+                    if (!$this->model->query('member')->is_user($post['email'])) {
+                        $error['email'] = 'ชื่อผู้ใช้ไม่ถูกต้อง';
+                    } else {
+                        $error['pass'] = 'รหัสผ่านไม่ถูกต้อง';
+                    }
+                }
+
+            } catch (Exception $e) {
+                $error = $this->_getError($e->getMessage());
             }
         }
-        else{
-            $arr['error'] = 'เรียกใช้ข้อมูลจาก Facebook ไม่เพียงพอ';
+
+        if (!empty($error)) {
+            $this->view->error = $error;
         }
 
-        echo json_encode( $arr );
-    }*/
+        if(!empty($post) ){
+            $this->view->post = $post;
+        }
 
-    public function social()
-    {
+        $this->view->next = !empty($_REQUEST['next']) ? $_REQUEST['next'] : $_SERVER['REQUEST_URI'];
+        $this->view->render("member/login");
+    }
+
+    public function social() {
 
         if( empty($_POST) && $this->format!='json') $this->_error();
 
@@ -57,26 +83,4 @@ class Login extends Controller {
 
         echo json_encode( $arr );
     }
-
-    public function google(){
-        if( empty($_POST) && $this->format!='json') $this->_error();
-
-        $data = $_POST;
-        if( !empty($data['email']) ){
-
-            $arr['next'] = isset($_REQUEST['next'])? $_REQUEST['next']: null;
-            $user = $this->model->query("users")->loginGoogle( $data );
-            Cookie::set( COOKIE_KEY , $user['user_id'], time()+86400);
-
-            if( !empty($arr['next']) ){
-                $arr['url'] = $arr['next'];
-            }
-        }
-        else{
-            $arr['error'] = 'เรียกใช้ข้อมูลจาก Google ไม่เพียงพอ';
-        }
-
-        echo json_encode( $arr );
-    }
-
 }

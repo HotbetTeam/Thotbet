@@ -12,6 +12,7 @@ class Manage extends Controller {
     }
 
     public function navTrigger() {
+        
         if( isset($_REQUEST['status']) ){
             Session::init();                          
             Session::set('isPushedLeft', $_REQUEST['status']);

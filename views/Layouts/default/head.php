@@ -19,9 +19,9 @@ echo '<head>';
 
 // Page title
 if (isset($this->title)){
-    echo '<title>' . PAGE_TITLE . '</title>';
+    echo '<title>' . $this->title . '</title>';
 }else{
-    echo '<title></title>';
+    echo '<title>' . PAGE_TITLE . '</title>';
 }
 
 echo '<meta charset="utf-8" />';

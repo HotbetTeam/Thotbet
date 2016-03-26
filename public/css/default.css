@@ -191,85 +191,73 @@ i.img u{position:absolute;top:-9999999px}
 /* btn
 ======================================================== */
 .btn{color:#333;display:inline-block;padding:0 12px;margin-bottom:0;font-weight:600;height:30px;line-height:30px;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:none;background-color:#ddd}
-.btn:hover,.btn:focus,.btn.focus{background-color:#d9d9d9}
-.btn:active,.btn.active{background-color:#d0d0d0}
-
-a.btn.disabled,fieldset[disabled] a.btn{pointer-events:none}
-
-a.btn:hover{text-decoration:none;}
+.btn:hover, .btn:focus, .btn.focus{background-color:#d9d9d9}
+.btn:active, .btn.active{background-color:#d0d0d0}
+a.btn.disabled, fieldset[disabled] a.btn{pointer-events:none}
+a.btn:hover{text-decoration:none}
 button.btn{outline:none}
 
-.btn-blue,.btn-primary{color:#fff;background-color:#168add}
-.btn-primary{
-	-webkit-transition: box-shadow 0.1s;
-    transition: box-shadow 0.1s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.btn-blue:focus,.btn-blue.focus,.btn-blue:hover,.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary.active{background-color:#0086b7}
-.btn-white,.btn-white:focus,.btn-white.focus,.btn-white:hover,.btn-white:active,.btn-white.active{background-color:#fff;color: #111}
-.btn-white.active{cursor: default;}
 
-.btn-success,.btn-green{color:#fff;background-color:#50ae55;}
-.btn-success:hover,.btn-green:hover,.btn-success:active,.btn-green:active{background-color: #439247}
+.btn-blue, .btn-primary{color:#fff;background-color:#168add}
+.btn-blue:hover, .btn-blue:focus, .btn-blue.focus, .btn-primary:hover, .btn-primary:focus, .btn-primary.focus{background-color:#0086b7}
+.btn-blue:active, .btn-blue.active,.btn-primary:active, .btn-primary.active{background-color: #4387fd}
 
-.btn-success:active,.btn-green:active{box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}
+/* red */
+.btn-danger, .btn-red{color:#fff;background-color:#dd4b39}
+.btn-danger:hover, .btn-danger:focus, .btn-danger.focus, .btn-red:hover, .btn-red:focus, .btn-red.focus{background-color:#c53727;}
+.btn-danger:active, .btn-danger.active,.btn-red:active, .btn-red.active{background-color:#b0281a}
 
+.btn-white, .btn-white:focus, .btn-white.focus, .btn-white:hover, .btn-white:active, .btn-white.active{background-color:#fff;color:#111}
+.btn-white.active{cursor:default}
+
+/* green */
+.btn-success, .btn-green{color:#fff;background-color:#50ae55}
+.btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-green:hover, .btn-green:focus, .btn-green.focus{background-color:#439247}
+.btn-success:active, .btn-success.active,.btn-green:active, .btn-green.active{background-color:#439247}
+
+.btn-success:active{box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}
 .btn-orange{color:#fff;background-color:#ff8c00} /*rgba(248, 167, 36, .87)*/
-.btn-orange:hover,.btn-orange:active{background-color:rgba(248, 167, 36, .87)}
-.btn-yellow{background-color: #e3ab00;}
-.btn-yellow:hover,.btn-yellow:active,.btn-yellow.active,.btn-yellow.active:focus,.btn-yellow:active:hover{background-color: #ffe200;}
-
+.btn-orange:hover, .btn-orange:active{background-color:rgba(248, 167, 36, .87)}
+.btn-yellow{background-color:#e3ab00}
+.btn-yellow:hover, .btn-yellow:active, .btn-yellow.active, .btn-yellow.active:focus, .btn-yellow:active:hover{background-color:#ffe200}
 .btn-google{color:#fff;background-color:#dd4b39;border-color:rgba(0,0,0,0.2)}
-.btn-google:focus,.btn-google.focus{color:#fff;background-color:#c23321;border-color:rgba(0,0,0,0.2)}
+.btn-google:focus, .btn-google.focus{color:#fff;background-color:#c23321;border-color:rgba(0,0,0,0.2)}
 .btn-google:hover{color:#fff;background-color:#c23321;border-color:rgba(0,0,0,0.2)}
-.btn-google:active,.btn-google.active,.open>.dropdown-toggle.btn-google{color:#fff;background-color:#c23321;border-color:rgba(0,0,0,0.2)}
-.btn-google:active:hover,.btn-google.active:hover,.open>.dropdown-toggle.btn-google:hover,.btn-google:active:focus,.btn-google.active:focus,.open>.dropdown-toggle.btn-google:focus,.btn-google:active.focus,.btn-google.active.focus,.open>.dropdown-toggle.btn-google.focus{color:#fff;background-color:#a32b1c;border-color:rgba(0,0,0,0.2)}
-.btn-google:active,.btn-google.active,.open>.dropdown-toggle.btn-google{background-image:none}
-.btn-google.disabled,.btn-google[disabled],fieldset[disabled] .btn-google,.btn-google.disabled:hover,.btn-google[disabled]:hover,fieldset[disabled] .btn-google:hover,.btn-google.disabled:focus,.btn-google[disabled]:focus,fieldset[disabled] .btn-google:focus,.btn-google.disabled.focus,.btn-google[disabled].focus,fieldset[disabled] .btn-google.focus,.btn-google.disabled:active,.btn-google[disabled]:active,fieldset[disabled] .btn-google:active,.btn-google.disabled.active,.btn-google[disabled].active,fieldset[disabled] .btn-google.active{background-color:#dd4b39;border-color:rgba(0,0,0,0.2)}
+.btn-google:active, .btn-google.active, .open>.dropdown-toggle.btn-google{color:#fff;background-color:#c23321;border-color:rgba(0,0,0,0.2)}
+.btn-google:active:hover, .btn-google.active:hover, .open>.dropdown-toggle.btn-google:hover, .btn-google:active:focus, .btn-google.active:focus, .open>.dropdown-toggle.btn-google:focus, .btn-google:active.focus, .btn-google.active.focus, .open>.dropdown-toggle.btn-google.focus{color:#fff;background-color:#a32b1c;border-color:rgba(0,0,0,0.2)}
+.btn-google:active, .btn-google.active, .open>.dropdown-toggle.btn-google{background-image:none}
+.btn-google.disabled, .btn-google[disabled], fieldset[disabled] .btn-google, .btn-google.disabled:hover, .btn-google[disabled]:hover, fieldset[disabled] .btn-google:hover, .btn-google.disabled:focus, .btn-google[disabled]:focus, fieldset[disabled] .btn-google:focus, .btn-google.disabled.focus, .btn-google[disabled].focus, fieldset[disabled] .btn-google.focus, .btn-google.disabled:active, .btn-google[disabled]:active, fieldset[disabled] .btn-google:active, .btn-google.disabled.active, .btn-google[disabled].active, fieldset[disabled] .btn-google.active{background-color:#dd4b39;border-color:rgba(0,0,0,0.2)}
 .btn-google .badge{color:#dd4b39;background-color:#fff}
-
 .btn-facebook{color:#fff;background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
-.btn-facebook:focus,.btn-facebook.focus{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
+.btn-facebook:focus, .btn-facebook.focus{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
 .btn-facebook:hover{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
-.btn-facebook:active,.btn-facebook.active,.open>.dropdown-toggle.btn-facebook{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
-.btn-facebook:active:hover,.btn-facebook.active:hover,.open>.dropdown-toggle.btn-facebook:hover,.btn-facebook:active:focus,.btn-facebook.active:focus,.open>.dropdown-toggle.btn-facebook:focus,.btn-facebook:active.focus,.btn-facebook.active.focus,.open>.dropdown-toggle.btn-facebook.focus{color:#fff;background-color:#23345a;border-color:rgba(0,0,0,0.2)}
-.btn-facebook:active,.btn-facebook.active,.open>.dropdown-toggle.btn-facebook{background-image:none}
-.btn-facebook.disabled,.btn-facebook[disabled],fieldset[disabled] .btn-facebook,.btn-facebook.disabled:hover,.btn-facebook[disabled]:hover,fieldset[disabled] .btn-facebook:hover,.btn-facebook.disabled:focus,.btn-facebook[disabled]:focus,fieldset[disabled] .btn-facebook:focus,.btn-facebook.disabled.focus,.btn-facebook[disabled].focus,fieldset[disabled] .btn-facebook.focus,.btn-facebook.disabled:active,.btn-facebook[disabled]:active,fieldset[disabled] .btn-facebook:active,.btn-facebook.disabled.active,.btn-facebook[disabled].active,fieldset[disabled] .btn-facebook.active{background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
+.btn-facebook:active, .btn-facebook.active, .open>.dropdown-toggle.btn-facebook{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
+.btn-facebook:active:hover, .btn-facebook.active:hover, .open>.dropdown-toggle.btn-facebook:hover, .btn-facebook:active:focus, .btn-facebook.active:focus, .open>.dropdown-toggle.btn-facebook:focus, .btn-facebook:active.focus, .btn-facebook.active.focus, .open>.dropdown-toggle.btn-facebook.focus{color:#fff;background-color:#23345a;border-color:rgba(0,0,0,0.2)}
+.btn-facebook:active, .btn-facebook.active, .open>.dropdown-toggle.btn-facebook{background-image:none}
+.btn-facebook.disabled, .btn-facebook[disabled], fieldset[disabled] .btn-facebook, .btn-facebook.disabled:hover, .btn-facebook[disabled]:hover, fieldset[disabled] .btn-facebook:hover, .btn-facebook.disabled:focus, .btn-facebook[disabled]:focus, fieldset[disabled] .btn-facebook:focus, .btn-facebook.disabled.focus, .btn-facebook[disabled].focus, fieldset[disabled] .btn-facebook.focus, .btn-facebook.disabled:active, .btn-facebook[disabled]:active, fieldset[disabled] .btn-facebook:active, .btn-facebook.disabled.active, .btn-facebook[disabled].active, fieldset[disabled] .btn-facebook.active{background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
 .btn-facebok .badge{color:#3b5998;background-color:#fff}
-
-
 .btn-twitter{color:#fff;background-color:#55acee;border-color:rgba(0,0,0,0.2)}
-.btn-twitter:focus,.btn-twitter.focus{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:focus, .btn-twitter.focus{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}
 .btn-twitter:hover{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}
-.btn-twitter:active,.btn-twitter.active{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}.btn-twitter:active:hover,.btn-twitter.active:hover{color:#fff;background-color:#1583d7;border-color:rgba(0,0,0,0.2)}
-.btn-twitter:active,.btn-twitter.active{background-image:none}
-.btn-twitter.disabled,.btn-twitter[disabled],fieldset[disabled] .btn-twitter,.btn-twitter.disabled:hover,.btn-twitter[disabled]:hover,fieldset[disabled] .btn-twitter:hover,.btn-twitter.disabled:focus,.btn-twitter[disabled]:focus,fieldset[disabled] .btn-twitter:focus,.btn-twitter.disabled.focus,.btn-twitter[disabled].focus,fieldset[disabled] .btn-twitter.focus,.btn-twitter.disabled:active,.btn-twitter[disabled]:active,fieldset[disabled] .btn-twitter:active,.btn-twitter.disabled.active,.btn-twitter[disabled].active,fieldset[disabled] .btn-twitter.active{background-color:#55acee;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:active, .btn-twitter.active{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:active:hover, .btn-twitter.active:hover{color:#fff;background-color:#1583d7;border-color:rgba(0,0,0,0.2)}
+.btn-twitter:active, .btn-twitter.active{background-image:none}
+.btn-twitter.disabled, .btn-twitter[disabled], fieldset[disabled] .btn-twitter, .btn-twitter.disabled:hover, .btn-twitter[disabled]:hover, fieldset[disabled] .btn-twitter:hover, .btn-twitter.disabled:focus, .btn-twitter[disabled]:focus, fieldset[disabled] .btn-twitter:focus, .btn-twitter.disabled.focus, .btn-twitter[disabled].focus, fieldset[disabled] .btn-twitter.focus, .btn-twitter.disabled:active, .btn-twitter[disabled]:active, fieldset[disabled] .btn-twitter:active, .btn-twitter.disabled.active, .btn-twitter[disabled].active, fieldset[disabled] .btn-twitter.active{background-color:#55acee;border-color:rgba(0,0,0,0.2)}
 .btn-twitter .badge{color:#55acee;background-color:#fff}
-
 .btn-info{color:#fff;background-color:#5bc0de}
 .btn-warning{color:#fff;background-color:#f0ad4e}
-.btn-danger,.btn-red{color:#fff;background-color:#d9534f}
 
-.btn-link{color:#2196f3;background-color:transparent;}
-.btn-link,.btn-link:focus,.btn-link:hover,.btn-link:active{color:#0c7cd5;background-color:transparent;box-shadow:none}
-
+.btn-link{color:#2196f3;background-color:transparent;font-weight: normal;}
+.btn-link, .btn-link:focus, .btn-link:hover, .btn-link:active{color:#0c7cd5;background-color:transparent;box-shadow:none}
 .btn-link:active{color:#111}
-.btn-link.btn-cancel{color: #888;}
-.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:default;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}
-
-.btn-success,.btn-primary,.btn-danger{
-	-webkit-transition: box-shadow 0.1s;
-    transition: box-shadow 0.1s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.btn-primary:active, .btn-primary.active{
-	box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-.btn + .btn{margin-left:5px;}
-
-.btn-icon{display: inline-block;font-size: 18px;width: 30px;text-align: center;height: 30px;line-height: 30px;border-radius: 50%;background-color: transparent;-webkit-transition: background-color 0.25s ease-in-out,color 0.25s ease-in-out;transition: background-color 0.25s ease-in-out,color 0.25s ease-in-out;}
-.btn-icon:active{background-color: rgba(0,0,0,.2)}
-a.btn-icon:hover{text-decoration: none;}
+.btn-link.btn-cancel{color:#888}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn{cursor:default;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}
+.btn-success, .btn-primary, .btn-danger{-webkit-transition:box-shadow 0.1s;transition:box-shadow 0.1s;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+.btn-primary:active, .btn-primary.active{box-shadow:0 2px 10px rgba(0,0,0,0.3)}
+.btn + .btn{margin-left:5px}
+.btn-icon{display:inline-block;font-size:18px;width:30px;text-align:center;height:30px;line-height:30px;border-radius:50%;background-color:transparent;-webkit-transition:background-color 0.25s ease-in-out, color 0.25s ease-in-out;transition:background-color 0.25s ease-in-out, color 0.25s ease-in-out}
+.btn-icon:active{background-color:rgba(0,0,0,.2)}
+a.btn-icon:hover{text-decoration:none}
 .btn-error{-webkit-animation:shake 0.5s;-moz-animation:shake 0.5s;animation:shake 0.5s}
 /* From Dan Eden's animate.css:http://daneden.me/animate/ */
 @-webkit-keyframes shake {0%,100% {-webkit-transform:translateX(0)}10%,30%,50%,70%,90% {-webkit-transform:translateX(-10px)}20%,40%,60%,80% {-webkit-transform:translateX(10px)}}
@@ -292,6 +280,10 @@ a.btn-icon:hover{text-decoration: none;}
 .btn-border.btn-blue{color:#007ee5;border-color:#007ee5;background-color:transparent}
 .btn-border.btn-blue:hover{color:#2f5bb7;border-color:#2f5bb7}
 .btn-border.btn-blue:active{color:#357ae8;border-color:#357ae8}
+
+.btn-border.btn-red{color:#d9534f;border-color:#d9534f;background-color:transparent}
+.btn-border.btn-red:hover{color:#c53727;border-color:#c53727}
+.btn-border.btn-red:active{color:#b0281a;border-color:#b0281a}
 
 
 .btn-animate-shadowpat{

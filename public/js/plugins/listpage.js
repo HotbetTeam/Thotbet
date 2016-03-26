@@ -209,16 +209,25 @@ if ( typeof Object.create !== 'function' ) {
 			self.$elem.find('.search-input').keydown(function(e){
 				var text = $.trim( $(this).val() );
 
-				if(e.keyCode == 13) {
+				if(e.keyCode == 13 && text!='') {
+					self.search( text );
+				}
 
-					console.log( text );
-					e.preventDefault();
+			}).keyup(function(e){
+				var text = $.trim( $(this).val() );
+
+				if( text=='' && text!= self.data.options.q ){
+					self.search( text );
 				}
 			});
 			self.$elem.find('.form-search').submit(function (e) {
 				var text = $.trim( $(this).find('.search-input').val() );
 
-				console.log( "search", text );
+
+				if( text!='' ){
+					self.search( text );
+				}
+				
 				e.preventDefault();
 			});
 
@@ -233,6 +242,14 @@ if ( typeof Object.create !== 'function' ) {
 			}
 			
 			
+		},
+		search: function (text) {
+			var self = this;
+
+			self.data.options.pager = 1;
+			self.data.options[ 'q' ] = text;
+			self.is_search = true;
+			self.refresh( 500 );
 		},
 
 		setDate: {

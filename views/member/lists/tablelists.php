@@ -23,6 +23,10 @@ if( !empty($this->results['lists']) ){
 						: '') .
 				'</div>';
 
+		$agent = empty($item['agent_id'])
+			? '-'
+			: '<a href="'.URL.'manage/agent/'.$item['agent_id'].'">'.$item['agent']['agent_name'].'</a>';
+
 		$actions = $this->ui->toggle()
 			->title(array(
 				'text'=> '<i class="icon-cog"></i>',
@@ -96,6 +100,8 @@ if( !empty($this->results['lists']) ){
             		'<td class="number">'.number_format( $item['point_show']).'</td>'
             	: ''
             ).
+
+            '<td>'.$agent.'</td>'.
             
             '<td class="actions">'.
 

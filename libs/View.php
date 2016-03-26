@@ -30,10 +30,10 @@ class View {
             # start: doc
             echo '<div id="doc">';
 
-                if( !in_array($this->theme, array('manage')) ){
-                    $this->theme = "dafault";
-                }elseif( in_array($this->theme, array('login')) ){
+                if( in_array($this->theme, array('login')) ){
                     $this->theme = "full";
+                }else if( !in_array($this->theme, array('manage')) ){
+                    $this->theme = "dafault";
                 }
 
                 $themeName = "getTheme_{$this->theme}";
@@ -62,18 +62,13 @@ class View {
         # topbar
         require "views/Layouts/topbar/manage.php";
 
-        require 'views/Layouts/sidebar/navigation-main.php';
-
-
-        // Left Colum
-        if (!empty($this->hasLeftCol)) {
-
-            echo '<div id="leftCol">';
-            require "views/{$this->hasLeftCol}.php";
-            echo '</div>';
+        if( !empty( $this->me['user_id'] ) ){
+            require 'views/Layouts/sidebar/manage-navigation.php';
         }
-
-
+        else if( !empty( $this->me['agent_id'] ) ){
+            require 'views/agent/Layouts/navigation.php';
+        }
+        
         # content
         echo '<div id="container"><div id="content">';
         require 'views/' . $name . '.php';
@@ -99,7 +94,7 @@ class View {
         require "views/Layouts/sidebar/chat.php";
         echo '</div>';
 
-        if (!empty($this->me)) {
+        if (!empty($this->me['m_id'])) {
 
             if ($this->theme == 'home' && empty($this->me['phone_number'])) {
                 echo '<div data-alert data-load="' . URL . 'alert/up/phone_number/"></div>';
@@ -110,8 +105,13 @@ class View {
     public function initPage() {
 
         if ($this->theme == 'manage') {
-            $this->elem('body')->addClass('blackSide'); //balance
-            // $this->elem('body')->addClass('is-pushed-left');
+
+            if( !empty($this->me['agent_id']) ){
+                $this->elem('body')->addClass('balance'); 
+            }
+            else{
+                $this->elem('body')->addClass('blackSide'); 
+            }
 
             if (!empty($this->hasLeftCol)) {
                 $this->elem('body')->addClass('hasLeftCol');

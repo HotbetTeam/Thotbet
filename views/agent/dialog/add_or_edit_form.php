@@ -26,7 +26,7 @@ if( empty($this->item) ) {
 }
 
     $form ->field("agent_name")
-        ->label('ชื่อ*')
+        ->label('ชื่อ-สกุล*')
         ->addClass('inputtext')
         ->required(true)
           ->type('text')
@@ -49,7 +49,8 @@ if( empty($this->item) ) {
 }
 else{
 	$arr['title'] = 'Edit Agent';	
-	$arr['hiddenInput'][] = array('name'=>'id', 'value'=> $this->item['agent_id']);
+    $arr['hiddenInput'][] = array('name'=>'id', 'value'=> $this->item['agent_id']);
+	$arr['hiddenInput'][] = array('name'=>'next', 'value'=> URL.'manage/agent/' . $this->item['agent_id']);
 }
 $arr['form'] = '<form class="form-insert-people js-submit-form" action="'.URL.'agent/update"></form>';
 $arr['button'] = '<a class="btn btn-link btn-cancel" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';

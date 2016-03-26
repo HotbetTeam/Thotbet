@@ -23,6 +23,7 @@ class Member_Table extends Model {
                         , m_level_id as level_id
                         , lev_name as level_name
                         , m_note as note
+                        , m_agent_id as agent_id
                         , m_conversation_key_id as conversation_key_id";
 
     public $_table = "member m INNER JOIN member_level l ON m_level_id=l.lev_id";
@@ -42,25 +43,24 @@ class Member_Table extends Model {
         ), $options);
     }
 
-    
     public function lists($options=array()){
         $options = $this->options( $options );
         // 
-        $width_str = "m_created<=:time";
-        $width_arr = array( ':time' => date('Y-m-d H:i:s', $options['time']) );
+        $where_str = "m_created<=:time";
+        $where_arr = array( ':time' => date('Y-m-d H:i:s', $options['time']) );
 
-        $width_str .= empty($options['status']) || $options['status']=='all'
+        $where_str .= empty($options['status']) || $options['status']=='all'
             ? " AND (m_status!='verify' AND m_status!='cancel')"
             : " AND m_status='{$options['status']}'";
         // 
-        $arr['total'] = $this->db->count( $this->_table, $width_str,  $width_arr );
+        $arr['total'] = $this->db->count( $this->_table, $where_str,  $where_arr );
 
         // 
         $limit = $this->limited($options['limit'], $options['pager']);
         $orderby = $this->orderby( $options['sort_field'], $options['sort'] );
-        $width_str = !empty($width_str) ? "WHERE {$width_str}":'';
-        $arr['lists'] = $this->buildFrag( $this->db->select("SELECT {$this->_field} FROM {$this->_table} {$width_str} {$orderby} {$limit}", $width_arr ) );
-        //echo "SELECT {$this->_field} FROM {$this->_table} {$width_str} {$orderby} {$limit}"; die;
+        $where_str = !empty($where_str) ? "WHERE {$where_str}":'';
+        $arr['lists'] = $this->buildFrag( $this->db->select("SELECT {$this->_field} FROM {$this->_table} {$where_str} {$orderby} {$limit}", $where_arr ) );
+        //echo "SELECT {$this->_field} FROM {$this->_table} {$where_str} {$orderby} {$limit}"; die;
         // 
         if( ($options['pager']*$options['limit']) >= $arr['total'] ) $options['more']=false;
         $arr['options'] = $options;
@@ -88,34 +88,39 @@ class Member_Table extends Model {
             return $this->convert( $sth->fetch( PDO::FETCH_ASSOC ) );
         } return array();
     }
-    public function convert($result){
+    public function convert($data){
 
-        switch ($result['status']) {
+        switch ($data['status']) {
             case 'pause':
-                $result['status_str'] = 'หยุดการใช้งาน';
+                $data['status_str'] = 'หยุดการใช้งาน';
                 break;
 
             case 'play':
-                $result['status_str'] = 'เปิดการใช้งาน';
+                $data['status_str'] = 'เปิดการใช้งาน';
                 break;
 
             case 'cancel':
-                $result['status_str'] = 'ยกเลิก';
+                $data['status_str'] = 'ยกเลิก';
                 break;
 
             case 'verify':
-                $result['status_str'] = 'รอการอนุมัติ';
+                $data['status_str'] = 'รอการอนุมัติ';
                 break;
             
             
             default:
-                $result['status_str'] = "";
+                $data['status_str'] = "";
                 break;
         }
 
 
-        $result['url'] = URL."member/{$result['m_id']}";
-        return $result;
+        if( !empty($data['agent_id']) ){
+            $data['agent'] = $this->query('agent')->get( $data['agent_id'] );
+        }
+
+
+        $data['url'] = URL."member/{$data['m_id']}";
+        return $data;
     }
 
 
@@ -193,12 +198,6 @@ class Member_Table extends Model {
                 $this->insert($user);
                 $user['m_id'] = $this->db->lastInsertId();
 
-                if( Cookie::get('Agentredirect') && !empty($user['m_id']) ){
-
-                    $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $user['m_id']);
-                    Cookie::clear('Agentredirect');
-                }
-
                 // update picture
                 /*if( empty( $user['profile_image_url'] ) && !empty($data['image_url']) ){
                     // upload avatar
@@ -250,8 +249,11 @@ class Member_Table extends Model {
         $this->db->insert('member', $data);
         $data['m_id'] = $this->db->lastInsertId();
 
-        if( Cookie::get( COOKIE_KEY_AGENT ) && !empty($data['m_id']) ){
-            $this->query('agent')->joinMember(Cookie::get( COOKIE_KEY_AGENT ), $data['m_id']);
+        // เพิ่ม โดย Link Agent
+        if( Cookie::get('Agentredirect') && !empty($data['m_id']) ){
+
+            $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $data['m_id']);
+            Cookie::clear('Agentredirect');
         }
     }
     public function update($id, $data) {

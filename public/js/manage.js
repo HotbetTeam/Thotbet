@@ -55,8 +55,7 @@ var $window = $( window ),
 				self.isPushedLeft = !$('body').hasClass('is-pushed-left');
 				$('body').toggleClass('is-pushed-left', self.isPushedLeft);
 
-
-				$.get( URL + 'manage/navTrigger', {
+				$.get( URL + 'json/navTrigger', {
 					'status': self.isPushedLeft ? 1:0
 				});
 			});

@@ -5,6 +5,8 @@ class Member extends Controller {
     function __construct() {
         parent::__construct();
         $this->view->theme = 'manage';
+
+        $this->view->elem('body')->addClass('hidden-tobar');
     }
     
     public function index($id=null) {
@@ -46,7 +48,7 @@ class Member extends Controller {
             }
             else{
 
-                $this->view->elem('body')->addClass('hidden-tobar');
+                
                 
                 $this->view->statusCounts = $this->model->query('member')->statusCounts();
             	$this->view->render('member/lists/display');
@@ -57,7 +59,8 @@ class Member extends Controller {
     /**/
     /* new */
     public function add(){
-    	if( empty($this->me) || $this->format!='json' ) $this->error();
+
+    	if( empty($this->me['user_id']) || $this->format!='json' ) $this->error();
 
     	if( !empty($_POST) ){
     		try {
@@ -106,7 +109,8 @@ class Member extends Controller {
 	            
 		        if( empty($arr['error']) ){
 
-		        	$dataPost['m_status'] = 'play';
+                    $dataPost['m_status'] = 'play';
+
 		        	// insert 
 		        	$this->model->query('member')->insert( $dataPost );
 		        	$id = $dataPost['m_id'];
@@ -547,8 +551,6 @@ class Member extends Controller {
         }
 
         $arr['error'] = !empty($arr['error_message']);
-
-
 
         echo json_encode( $arr );
     }

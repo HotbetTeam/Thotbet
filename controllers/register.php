@@ -63,12 +63,6 @@ class Register extends Controller {
 
                     $this->model->query('member')->insert( $post );
 
-                    if( Cookie::get('Agentredirect') && !empty($post['m_id']) ){
-
-                        $this->model->query('agent')->joinMember(Cookie::get('Agentredirect'), $post['m_id']);
-                        Cookie::clear('Agentredirect');
-                    }
-
                     $arr['message'] = "ยินดีต้อนรับคุณ {$dataPost['name']}";
                     $arr['url'] = URL;
 
