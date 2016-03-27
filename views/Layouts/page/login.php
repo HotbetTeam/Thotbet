@@ -55,16 +55,16 @@ $form = $f->create()
 
         <div class="login-header-bar login-logo">
             <div class="text">
-                <h2 >Admin <span><?=PAGE_TITLE?></span><a href="<?=URL?>"><i class="icon-home mrs"></i>หน้าแรก</a></h2>
+                <h2 >Login To Admin<a href="<?=URL?>"><i class="icon-home mrs"></i>หน้าแรก</a></h2>
             </div>
-            <div class="subtext"><?=PAGE_ADDRESS?></div>
+            <div class="subtext mvm"><span><?=PAGE_TITLE?></span></div>
         </div>
 
         <div class="login-container-wrapper">
 
             <div class="login-container">
                 
-                <div class="login-title">ลงชื่อเข้าใช้ Admin</div>
+                <div class="login-title">Login</div>
 
                 <?=$form->html()?>
             

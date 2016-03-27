@@ -70,6 +70,14 @@ class Login extends Controller {
         $id = $this->model->query("member")->loginSocial($data);
         if( !empty($id) ){
 
+            if (Cookie::get(COOKIE_KEY_ADMIN)) {
+                Cookie::clear( COOKIE_KEY_ADMIN );
+            }
+
+            if(Cookie::get(COOKIE_KEY_AGENT)){
+                Cookie::clear( COOKIE_KEY_AGENT );
+            }
+
             Cookie::set( COOKIE_KEY , $id, time()+86400); // 1 วัน
             if( isset($_REQUEST['next']) ){
                 $arr['url'] = $_REQUEST['next'];

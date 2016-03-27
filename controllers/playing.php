@@ -41,6 +41,13 @@ class Playing extends Controller {
             $member = $this->model->getMember( $_REQUEST['user'] );
             $this->view->member = $this->model->query('member')->get( $member['m_id'] );
         }
+        else if( isset($_REQUEST['mid']) ){
+            $member = $this->model->query('member')->get( $_REQUEST['mid'] );
+            if( !empty($member) ){
+                $this->view->member = $member;
+            }
+            
+        }
 
         $this->view->render('playing/dialog/form');
     }

@@ -5,7 +5,6 @@ class Agent extends Controller {
     function __construct() {
         parent::__construct();
 
-
         $this->view->title = "Agent - ". PAGE_TITLE;
         $this->view->theme = 'manage';
         $this->view->currentPage = 'agent';
@@ -270,7 +269,7 @@ class Agent extends Controller {
             if( !empty($_POST) ){
                 try {
                     $form = new Form();
-                    $form   ->post('m_name')->val('name')->val('maxlength', 20)->val('is_empty')
+                    $form   ->post('m_name')->val('maxlength', 20)->val('is_empty')
                             ->post('m_email')
                             ->post('m_phone_number')
 
@@ -442,10 +441,22 @@ class Agent extends Controller {
         } else if( is_numeric($section) ){
             $item = $this->model->query('member')->get( $section );
             if( empty($item)) $this->error();
-            // print_r($item); die;
 
-            $this->view->item = $item;
-            $this->view->render('agent/member/profile/display');
+            $this->view->results = $this->model->query('member')->playing( $item['m_id'] );
+
+            if( $this->format=='json' ){
+
+                $this->view->render('agent/member/profile/lists/json');
+            }else{
+
+                Session::init();                          
+                Session::set('isPushedLeft', false);
+                $this->view->elem('body')->addClass('is-overlay-left page-listpage');
+
+                $this->view->item = $item;
+                $this->view->render('agent/member/profile/display');
+            }
+            
             exit;
         }
 

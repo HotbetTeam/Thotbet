@@ -47,7 +47,7 @@ $form = $f->create()
 		->text( $levelSelector )
 
 	->field("username")
-		->label('ชื่อผู้เข้าใช้')
+		->label('Username On Web')
 		->addClass('inputtext')
 		->maxlength(15)
 		->required(true)
@@ -68,6 +68,7 @@ $form = $f->create()
 
 	<div class="pal">
 		<ul class="profile-left-summary">
+			<li><strong>Username On Game:</strong> <?=$this->item['game_user']?></li>
 			<li><strong>แต้มแสดง:</strong> <?=$this->item['point_show_str']?></li>
 			<li><strong>แต้มจริง:</strong> <?=$this->item['point_str']?></li>
 			<li><strong>เป็นสมาชิกเมื่อ:</strong> <?= $this->fn->q('time')->normal( strtotime( $this->item['created'] ) ) ?></li>

@@ -1,9 +1,10 @@
 <div ref="header" class="listpage-header clearfix">
 	<div ref="actions" class="listpage-actions clearfix">
 		<ul class="lfloat">
-			<li><a class="btn" href="<?=URL?>member"><i class="icon-long-arrow-left"></i></a></li>
-			<!-- <li><a class="btn js-refresh" data-plugins="tooltip" data-options="<?=$this->fn->stringify(array('text'=>'refresh'))?>"><i class="icon-refresh"></i></a></li> -->
-			
+			<li><a class="btn" href="<?=URL?>agent/member"><i class="icon-long-arrow-left"></i></a></li>
+			<li class="divider"></li>
+			<li class="title fwb fsxl"> ข้อมูลการเล่นเกม </li>
+			<li><a class="btn js-refresh" data-plugins="tooltip" data-options="<?=$this->fn->stringify(array('text'=>'refresh'))?>"><i class="icon-refresh"></i></a></li>
 			<li>
 				<div class="range-selector" ref="rangeSelector">
 					<div class="date-selector">
@@ -30,10 +31,6 @@
 				</div>
 			</li>
 
-			<li class="divider"></li>
-		</ul>
-		<ul class="lfloat" ref="actions">
-			<li><a href="<?=URL?>playing/form?mid=<?=$this->item['m_id']?>" data-plugins="dialog" class="btn btn-primary"><i class="icon-plus mrs"></i><span class="btn-text">เพิ่ม</span></a></li>
 		</ul>
 
 		<ul class="rfloat" ref="control">
