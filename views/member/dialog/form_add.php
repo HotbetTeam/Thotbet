@@ -14,8 +14,28 @@ $form = $f->create()
 	->elem('div')
 	->addClass('form-insert')
 
+	->hr('ข้อมูลการเล่นเกม')
+
+	->field("game_user")
+		->label('Member Account*')
+		->addClass('inputtext')
+		->maxlength(15)
+		->required(true)
+		->autocomplete("off")
+		->value( $this->autoGameUser )
+
+	->field("game_pass")
+		->type('password')
+		->label('Password*')
+		->addClass('inputtext')
+		->maxlength(30)
+		->required(true)
+		->autocomplete("off")
+
+	->hr('ข้อมูลการใช้งานบนเว็บ')
+
 	->field("m_username")
-		->label('ชื่อผู้เข้าใช้*')
+		->label('Username*')
 		->addClass('inputtext')
 		->maxlength(15)
 		->required(true)
@@ -31,7 +51,7 @@ $form = $f->create()
 		->autocomplete("off")
 
 	->field("m_name")
-		->label('ชื่อ*')
+		->label('ชื่อ-สกุล*')
 		->addClass('inputtext')
 		->placeholder("")
 		->maxlength(20)
@@ -71,6 +91,6 @@ $arr['body'] = $form->html();
 $arr['title'] = 'เพิ่มสมาชิกใหม่';	
 $arr['form'] = '<form class="form-insert-people js-submit-form" action="'.URL.'member/add"></form>';
 $arr['button'] = '<a class="btn btn-link btn-cancel" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';
-$arr['button'] .= '<button type="submit" class="btn btn-link btn-submit"><span class="btn-text">บันทึก</span></button>';
+$arr['button'] .= '<button type="submit" class="btn btn-blue btn-submit"><span class="btn-text">บันทึก</span></button>';
 
 echo json_encode($arr);

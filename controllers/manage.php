@@ -78,8 +78,22 @@ class Manage extends Controller {
             $item = $this->model->query('agent')->get( $id );
             if(empty($item)) $this->error();
 
-            $this->view->item = $item;
-            $this->view->render('manage/agent/profile/display');
+            $this->view->results = $this->model->query('agent')->member( $id );
+            $this->view->status = isset($_REQUEST['status']) ? $_REQUEST['status']: null;
+            $this->view->statusCounts = $this->model->query('member')->statusCounts();
+
+            if( $this->format=='json' ){
+                $this->view->render('manage/agent/profile/lists/json');
+            }
+            else{
+
+                Session::init();                          
+                Session::set('isPushedLeft', false);
+                $this->view->elem('body')->addClass('is-overlay-left page-listpage');
+
+                $this->view->item = $item;
+                $this->view->render('manage/agent/profile/display');
+            }
         }
         else{
             $this->view->results = $this->model->query('agent')->lists();
@@ -87,7 +101,6 @@ class Manage extends Controller {
             if( $this->format=='json' ){
                 $this->view->render('manage/agent/lists/json');
             }else{
-                
                 $this->view->render("manage/agent/lists/display");
             }
         }

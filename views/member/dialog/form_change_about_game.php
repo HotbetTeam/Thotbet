@@ -8,7 +8,7 @@ $form = $f->create()
 	->addClass('form-insert')
 
 	->field("game_user")
-		->label('ชื่อเข้าใช้')
+		->label('Member Account')
 		->addClass('inputtext')
 		->maxlength(15)
 		->required(true)
@@ -16,13 +16,12 @@ $form = $f->create()
 		->value( !empty($this->item['game_user']) ? $this->item['game_user']: '' )
 
 	->field("game_pass")
-		->label('รหัสผ่าน')
-		// ->type('password')
+		->type('password')
+		->label('Password')
 		->addClass('inputtext')
 		->maxlength(30)
 		->required(true)
-		->autocomplete("off")
-		->value( !empty($this->item['game_user']) ? $this->item['game_user']: '' );
+		->autocomplete("off");
 
 $arr['hiddenInput'][] = array('name'=>'id', 'value'=> $this->item['m_id']);
 $arr['body'] = $form->html();

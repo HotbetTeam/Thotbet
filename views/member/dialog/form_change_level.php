@@ -13,7 +13,7 @@ $form = $f->create()
 	
 	// set From
 	->elem('div')
-	->style('horizontal')
+	// ->style('horizontal')
 	->addClass('form-insert')
 
 	->field("name")
@@ -25,6 +25,6 @@ $arr['body'] = $form->html();
 $arr['title'] = 'เปลี่ยนระดับสมาชิก';	
 $arr['form'] = '<form class="form-insert-people js-submit-form" action="'.URL.'member/change_level"></form>';
 $arr['button'] = '<a href="#" class="btn btn-link btn-cancel" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';
-$arr['button'] .= '<button type="submit" class="btn btn-link btn-submit"><span class="btn-text">บันทึก</span></button>';
-
+$arr['button'] .= '<button type="submit" class="btn btn-blue btn-submit"><span class="btn-text">บันทึก</span></button>';
+$arr['width'] = 330;
 echo json_encode($arr);

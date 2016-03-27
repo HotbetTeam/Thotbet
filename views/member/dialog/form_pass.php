@@ -28,7 +28,7 @@ $arr['body'] = $form->html();
 $arr['title'] = 'เปลี่ยนรหัสผ่าน';	
 $arr['form'] = '<form class="form-insert-people js-submit-form" action="'.URL.'member/password"></form>';
 $arr['button'] = '<a href="#" class="btn btn-link btn-cancel" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';
-$arr['button'] .= '<button type="submit" class="btn btn-link btn-submit"><span class="btn-text">บันทึก</span></button>';
+$arr['button'] .= '<button type="submit" class="btn btn-blue btn-submit"><span class="btn-text">บันทึก</span></button>';
 
 $arr['width'] = 330;
 echo json_encode($arr);

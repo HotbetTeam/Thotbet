@@ -1,20 +1,22 @@
 <?php
 
+$title[] = array('key'=>'date', 'text'=>'วันที่เพิ่ม', 'sort'=>'m_created');
 
-$title[] = array('key'=>'date', 'text'=>'Date', 'sort'=>'pl_date');
+if( $this->status!='verify' ){
+	$title[] = array('key'=>'status', 'text'=>'สถานะ');
+	$title[] = array('key'=>'username', 'text'=>'Member Account', 'sort'=>'m_username'); //, 'sort'=>'m.user'
+}
 
-$title[] = array('key'=>'number', 'text'=>'Wagers', 'sort'=>'pl_wagers');
-$title[] = array('key'=>'number', 'text'=>'Bet amount', 'sort'=>'pl_bet_amount');
+$title[] = array('key'=>'name', 'text'=>'ชื่อ', 'sort'=>'m_name');
 
-$title[] = array('key'=>'number', 'text'=>'Member', 'sort'=>'pl_menber');
-$title[] = array('key'=>'number point', 'text'=>'Point', 'sort'=>'pl_menber');
 
-$title[] = array('key'=>'number', 'text'=>'Actual betting Qty', 'sort'=>'pl_actual');
-$title[] = array('key'=>'number point', 'text'=>'Point', 'sort'=>'pl_actual');
-
-$title[] = array('key'=>'number', 'text'=>'Sum Point', 'sort'=>'m_point');
+if( $this->status!='verify' ){
+	$title[] = array('key'=>'status', 'text'=>'ระดับ', 'sort'=>'lev_score');
+	$title[] = array('key'=>'number', 'text'=>'แต้มจริง', 'sort'=>'m_point');
+	$title[] = array('key'=>'number', 'text'=>'แต้มแสดง', 'sort'=>'m_point_show');
+}
 
 $title[] = array('key'=>'action', 'text'=>'');
 
 $this->tabletitle = $title;
-$this->getURL =  URL.'member/'.$this->item['m_id'];
+$this->getURL =  URL.'manage/agent/'.$this->item['agent_id'];

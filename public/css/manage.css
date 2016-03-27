@@ -1520,6 +1520,16 @@ body.hidden-tobar #tobar{
 }
 .profile-main [role=left]{
 	background-color: #fff;
+	position: relative;
+}
+.profile-main [role=left]:before{
+	position: absolute;
+	content: '';
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 1px;
+	background-color: #ccc
 }
 .profile-main [role=leftHeader]{
 	background-color: #2196f3;

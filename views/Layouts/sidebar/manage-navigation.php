@@ -27,28 +27,33 @@ function nav($lists=array(), $active=null){
 	<a class="btn btn-icon navigation-trigger"><i class="icon-bars"></i></a>
 	<div class="navigation-main-content">
 
+<div class="welcome-box"><div class="anchor clearfix"><div class="avatar lfloat"><img class="img" src="<?=$this->me['image_url']?>" alt="<?=$this->me['agent_name']?>"></div><div class="content"><div class="spacer"></div><div class="massages"><div class="fullname"><?=$this->me['name']?></div><span class="subname"></span></div></div></div></div>
+
 <?php
 
 $frist[] = array('key'=>'back_to_home','text'=>'กลับไปยังเว็บไซต์หลัก','link'=>URL,'icon'=>'reply-all');
 echo nav($frist, $this->currentPage);
 
+echo '<div class="navigation-btn-add"><a href="'.URL.'member/add" data-plugins="dialog" class="btn btn-red btn-border btn-large"><i class="icon-plus"></i><span class="mls btn-text">เพิ่มสมาชิกใหม่</span></a></div>';
 #pinnedNav
 // $pinned[] = array('key'=>'topics','text'=>'ข่าวสาร','link'=>URL.'admin/topics','icon'=>'newspaper-o');
-$pinned[] = array('key'=>'member','text'=>'สมาชิก','link'=>URL.'member','icon'=>'users');
 $pinned[] = array('key'=>'agent','text'=>'Agent','link'=>URL.'manage/agent','icon'=>'user-secret');
-$pinned[] = array('key'=>'playing','text'=>'Playing','link'=>URL.'playing','icon'=>'play');
-$pinned[] = array('key'=>'inbox','text'=>'Live Chat','link'=>URL.'inbox','icon'=>'comments-o');
-$pinned[] = array('key'=>'operator','text'=>'Operator','link'=>URL.'operator','icon'=>'headphones');
+$pinned[] = array('key'=>'member','text'=>'สมาชิก','link'=>URL.'member','icon'=>'users');
 
+// $pinned[] = array('key'=>'inbox','text'=>'Live Chat','link'=>URL.'inbox','icon'=>'comments-o');
+// $pinned[] = array('key'=>'operator','text'=>'Operator','link'=>URL.'operator','icon'=>'headphones');
+
+echo '<h4 class="navigation-header">จัดการสมาชิก</h4>';
 // $pinned[] = array('key'=>'users','text'=>'ผู้ดูแลระบบ','link'=>URL.'users','icon'=>'check-square-o');
 echo nav($pinned, $this->currentPage);
 
+#play
+$play[] = array('key'=>'playing','text'=>'Playing','link'=>URL.'playing','icon'=>'play');
+echo '<h4 class="navigation-header">การเล่นเกม</h4>';
+echo nav($play, $this->currentPage);
 
-// $a[] = array('key'=>'overview','text'=>'โปรโมชั่น','link'=>URL.'products','icon'=>'cubes');
-// $a[] = array('key'=>'overview','text'=>'ประเภทสถานที่','link'=>URL,'icon'=>'cubes');
-// $a[] = array('key'=>'overview','text'=>'เบิกเงินล้วงหน้า','link'=>URL);
-// $a[] = array('key'=>'overview','text'=>'รายงาน','link'=>URL);
-// $a[] = array('key'=>'admin','text'=>'ผู้ดูแล','link'=>URL.'admin','icon'=>'check-square-o');
+
+#manage
 $a[] = array('key'=>'manage','text'=>'ตั้งค่า','link'=>URL.'manage','icon'=>'cog');
 echo nav($a, $this->currentPage);
 

@@ -65,8 +65,8 @@ if( !empty($this->results['lists']) ){
         '<td class="number">'.number_format($total['pl_menber'],2).'</td>'.
         '<td class="number">'.number_format($total['pl_menber_point'],2).'</td>'.
         '<td class="number">'.number_format($total['pl_actual'],2).'</td>'.
-        '<td class="number">'.number_format($total['pl_actual_point'],2).'</td>'.
-        '<td class="number">'.number_format($total['pl_sum_point'],2).'</td>'.
+        '<td class="number">'.number_format( round($total['pl_actual_point'],2,PHP_ROUND_HALF_DOWN),2 ).'</td>'.
+        '<td class="number">'.number_format( round($total['pl_sum_point'],2,PHP_ROUND_HALF_DOWN),2 ).'</td>'.
         '<td colspan="actions"></td>'.
     '</tr></tfoot>';
 }

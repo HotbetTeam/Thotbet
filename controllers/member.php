@@ -31,8 +31,8 @@ class Member extends Controller {
 
                 Session::init();                          
                 Session::set('isPushedLeft', false);
-                $this->view->level = $this->model->query('member')->levelLists();
                 $this->view->elem('body')->addClass('is-overlay-left page-listpage');
+                $this->view->level = $this->model->query('member')->levelLists();
                 $this->view->render('member/profile/display');
             }
     	}
@@ -47,8 +47,6 @@ class Member extends Controller {
                 $this->view->render('member/lists/json');
             }
             else{
-
-                
                 
                 $this->view->statusCounts = $this->model->query('member')->statusCounts();
             	$this->view->render('member/lists/display');
@@ -68,6 +66,9 @@ class Member extends Controller {
 	            $form   ->post('m_name')->val('is_empty')
                         ->post('m_email')
                         ->post('m_phone_number')
+
+                        ->post('game_user')->val('username')
+                        ->post('game_pass')->val('password')
 
                         ->post('m_username')->val('username')
                         ->post('m_password')->val('password')
@@ -106,6 +107,11 @@ class Member extends Controller {
 	            if( $this->model->query('member')->is_user( $dataPost['m_username'] ) ){
 	            	$arr['error']['m_username'] = "ไม่สามารถใช้ชื่อผู้เข้าใช้นี้ได้ (ชื่อผู้เข้าใช้นี้ถูกใช้ไปแล้ว)";
 	            }
+
+
+                if( $this->model->query('member')->is_game_user( $dataPost['game_user'] ) ){
+                    $arr['error']['game_user'] = "ไม่สามารถใช้ชื่อผู้เข้าใช้นี้ได้ (ชื่อผู้เข้าใช้นี้ถูกใช้ไปแล้ว)";
+                }
 	            
 		        if( empty($arr['error']) ){
 
@@ -127,6 +133,7 @@ class Member extends Controller {
     	}
     	else{
 
+            $this->view->autoGameUser = $this->model->query('member')->autoGameUser();
             $this->view->level = $this->model->query('member')->levelLists();
     		$this->view->render('member/dialog/form_add');
     	}
@@ -305,6 +312,11 @@ class Member extends Controller {
         if( !empty($_POST) ){
             
             $this->model->query('member')->delete( $item['m_id'] );
+
+            if( !empty($item['agent_id']) ){
+                $this->model->query('agent')->delMember($item['agent_id'], $id);
+            }
+                
             $arr['message'] = "ลบเรียบร้อย";
             $arr['url'] = "refresh";
             echo json_encode($arr);
@@ -351,7 +363,8 @@ class Member extends Controller {
             echo json_encode($arr);
         }
         else{
-           
+            
+            $this->view->autoGameUser = $this->model->query('member')->autoGameUser();
             $this->view->item = $item;
             $this->view->render('member/dialog/form_confrim');
         }

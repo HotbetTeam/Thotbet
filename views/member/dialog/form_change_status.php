@@ -19,6 +19,6 @@ $arr['hiddenInput'][] = array('name'=>'id','value'=>$this->item['m_id']);
 $arr['hiddenInput'][] = array('name'=>'status','value'=>$this->status);
 
 $arr['button'] = '<a href="#" class="btn btn-link btn-cancel" role="dialog-close"><span class="btn-text">ยกเลิก</span></a>';
-$arr['button'] .= '<button type="submit" class="btn btn-link btn-submit"><span class="btn-text">ยืนยัน</span></button>';
+$arr['button'] .= '<button type="submit" class="btn btn-blue btn-submit"><span class="btn-text">ยืนยัน</span></button>';
 
 echo json_encode($arr);

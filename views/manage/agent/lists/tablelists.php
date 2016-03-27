@@ -86,27 +86,7 @@ if( !empty($this->results['lists']) ){
             '</td>'.
 
         '</tr>';
-
-        //set $total
-
-        /*if( !isset($total['number']) ) $total['number'] = 0;
-        $total['number'] += $seq;
-
-        if( !isset($total['total_qty']) ) $total['total_qty'] = 0;
-        $total['total_qty'] += $item['total_qty'];
-
-        if( !isset($total['total_amount']) ) $total['total_amount'] = 0;
-        $total['total_amount'] += $item['total_amount'];*/
-        
     }
-
-    // result amount
-    /*$tr_total = '<tfoot><tr class="amount">'.
-    	'<td colspan="3" class="tar">รวมทั้งหมด</td>'.
-    	'<td class="number">'.$total['total_qty'].'</td>'.
-        '<td class="number">'.number_format($total['total_amount'],2).'</td>'.
-    	'<td class="actions"></td>'.
-    '</tr></tfoot>';*/
 }
 
 $table = '<table><tbody>'. $tr. '</tbody>'.$tr_total.'</table>';

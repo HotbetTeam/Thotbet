@@ -60,7 +60,7 @@ class Member_Table extends Model {
         $orderby = $this->orderby( $options['sort_field'], $options['sort'] );
         $where_str = !empty($where_str) ? "WHERE {$where_str}":'';
         $arr['lists'] = $this->buildFrag( $this->db->select("SELECT {$this->_field} FROM {$this->_table} {$where_str} {$orderby} {$limit}", $where_arr ) );
-        //echo "SELECT {$this->_field} FROM {$this->_table} {$where_str} {$orderby} {$limit}"; die;
+        // echo "SELECT {$this->_field} FROM {$this->_table} {$where_str} {$orderby} {$limit}"; die;
         // 
         if( ($options['pager']*$options['limit']) >= $arr['total'] ) $options['more']=false;
         $arr['options'] = $options;
@@ -118,6 +118,12 @@ class Member_Table extends Model {
             $data['agent'] = $this->query('agent')->get( $data['agent_id'] );
         }
 
+        // $data['point_str'] = round($data['point'], 0, PHP_ROUND_HALF_DOWN);
+        $point_str = explode('.', $data['point']);
+        $data['point_str'] = $point_str[0];
+
+        $point_show_str = explode('.', $data['point_show']);
+        $data['point_show_str'] = $point_show_str[0];
 
         $data['url'] = URL."member/{$data['m_id']}";
         return $data;
@@ -233,6 +239,14 @@ class Member_Table extends Model {
             
             return $user['m_id'];
         }
+    }
+
+    public function autoGameUser() {
+        $sth = $this->db->prepare("SELECT m_id as id FROM `member` ORDER BY m_id DESC");
+        $sth->execute();
+
+        $fdata = $sth->fetch( PDO::FETCH_ASSOC );
+        return "Acde".sprintf("%03d", $fdata['id']);
     }
 
     /**/

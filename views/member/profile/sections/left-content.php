@@ -68,10 +68,11 @@ $form = $f->create()
 
 	<div class="pal">
 		<ul class="profile-left-summary">
-			<li><strong>แต้มแสดง:</strong> <?=$this->item['point_show']?></li>
-			<li><strong>แต้มจริง:</strong> <?=$this->item['point']?></li>
+			<li><strong>แต้มแสดง:</strong> <?=$this->item['point_show_str']?></li>
+			<li><strong>แต้มจริง:</strong> <?=$this->item['point_str']?></li>
 			<li><strong>เป็นสมาชิกเมื่อ:</strong> <?= $this->fn->q('time')->normal( strtotime( $this->item['created'] ) ) ?></li>
 			<li><strong>แก้ไขข้อมูลล่าสุด:</strong> <?= $this->fn->q('time')->stamp( $this->item['updated'] ) ?></li>
+			<li><strong>Agent:</strong> <?= !empty($this->item['agent_id']) ? '<a href="'.$this->item['agent']['url'].'">'.$this->item['agent']['agent_name'].'</a>' : '-'; ?></li>
 		</ul>
 	</div>
 	

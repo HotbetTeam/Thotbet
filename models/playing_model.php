@@ -7,7 +7,7 @@ class Playing_Model extends Model {
     }
 
     public function getMember($user) {
-        $sth = $this->db->prepare("SELECT m_id, m_point as point FROM member WHERE m_username=:user LIMIT 1");
+        $sth = $this->db->prepare("SELECT m_id, m_point as point FROM member WHERE game_user=:user LIMIT 1");
         $sth->execute( array(
             ':user' => $user,
         ) );
