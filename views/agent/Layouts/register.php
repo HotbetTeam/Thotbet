@@ -19,11 +19,11 @@ $form = $f->create()
 
     // set field
     ->field("agent_email")
-        ->type('email')
+        // ->type('email')
         ->required(true)
         ->addClass('inputtext')
         ->autocomplete("off")
-        ->placeholder("Phone or agent_email")
+        ->placeholder("Phone or Email")
         ->value( !empty($this->post['agent_email'])? $this->post['agent_email'] : '' )
         ->notify( !empty($this->error['agent_email']) ? $this->error['agent_email'] : '' )
 
