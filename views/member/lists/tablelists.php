@@ -23,9 +23,9 @@ if( !empty($this->results['lists']) ){
 						: '') .
 				'</div>';
 
-		$agent = empty($item['agent_id'])
+		$partner = empty($item['partner_id'])
 			? '-'
-			: '<a href="'.URL.'manage/agent/'.$item['agent_id'].'">'.$item['agent']['agent_name'].'</a>';
+			: '<a href="'.URL.'manage/partner/'.$item['partner_id'].'">'.$item['partner']['partner_name'].'</a>';
 
 		$actions = $this->ui->toggle()
 			->title(array(
@@ -101,7 +101,7 @@ if( !empty($this->results['lists']) ){
             	: ''
             ).
 
-            '<td>'.$agent.'</td>'.
+            '<td>'.$partner.'</td>'.
             
             '<td class="actions">'.
 

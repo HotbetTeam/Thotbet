@@ -37,7 +37,7 @@ echo nav($frist, $this->currentPage);
 echo '<div class="navigation-btn-add"><a href="'.URL.'member/add" data-plugins="dialog" class="btn btn-red btn-border btn-large"><i class="icon-plus"></i><span class="mls btn-text">เพิ่มสมาชิกใหม่</span></a></div>';
 #pinnedNav
 // $pinned[] = array('key'=>'topics','text'=>'ข่าวสาร','link'=>URL.'admin/topics','icon'=>'newspaper-o');
-$pinned[] = array('key'=>'agent','text'=>'Agent','link'=>URL.'manage/agent','icon'=>'user-secret');
+$pinned[] = array('key'=>'partner','text'=>'Partner','link'=>URL.'manage/partner','icon'=>'user-secret');
 $pinned[] = array('key'=>'member','text'=>'สมาชิก','link'=>URL.'member','icon'=>'users');
 
 // $pinned[] = array('key'=>'inbox','text'=>'Live Chat','link'=>URL.'inbox','icon'=>'comments-o');

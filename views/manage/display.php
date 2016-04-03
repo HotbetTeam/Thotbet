@@ -1,3 +1,8 @@
+<?php
+
+require 'init.php';
+
+?>
 <div id="mainContainer" class="clearfix" data-plugins="main">
 
 	<?php require 'sections/left.php'; ?>

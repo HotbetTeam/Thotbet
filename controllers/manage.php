@@ -70,20 +70,28 @@ class Manage extends Controller {
         $this->view->render("manage/display");
     }
 
-    public function agent($id=null) {
+    public function partner($id=null, $section='') {
 
-        $this->view->currentPage = "agent";
-        if( !empty($id) ){
+        $this->view->currentPage = "partner";
 
-            $item = $this->model->query('agent')->get( $id );
+        if( in_array($id, array('banner'))                                                                ){
+
+            $this->view->banners = $this->model->query('banner')->lists();
+            $this->view->section = "partner/{$id}";
+            $this->view->render("manage/display");
+            exit;
+        }
+        if( is_numeric($id) ){
+
+            $item = $this->model->query('partner')->get( $id );
             if(empty($item)) $this->error();
 
-            $this->view->results = $this->model->query('agent')->member( $id );
+            $this->view->results = $this->model->query('partner')->member( $id, array(), true );
             $this->view->status = isset($_REQUEST['status']) ? $_REQUEST['status']: null;
             $this->view->statusCounts = $this->model->query('member')->statusCounts();
 
             if( $this->format=='json' ){
-                $this->view->render('manage/agent/profile/lists/json');
+                $this->view->render('manage/partner/profile/lists/json');
             }
             else{
 
@@ -92,16 +100,16 @@ class Manage extends Controller {
                 $this->view->elem('body')->addClass('is-overlay-left page-listpage');
 
                 $this->view->item = $item;
-                $this->view->render('manage/agent/profile/display');
+                $this->view->render('manage/partner/profile/display');
             }
         }
         else{
-            $this->view->results = $this->model->query('agent')->lists();
+            $this->view->results = $this->model->query('partner')->lists();
 
             if( $this->format=='json' ){
-                $this->view->render('manage/agent/lists/json');
+                $this->view->render('manage/partner/lists/json');
             }else{
-                $this->view->render("manage/agent/lists/display");
+                $this->view->render("manage/partner/lists/display");
             }
         }
         

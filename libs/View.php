@@ -65,8 +65,8 @@ class View {
         if( !empty( $this->me['user_id'] ) ){
             require 'views/Layouts/sidebar/manage-navigation.php';
         }
-        else if( !empty( $this->me['agent_id'] ) ){
-            require 'views/agent/Layouts/navigation.php';
+        else if( !empty( $this->me['partner_id'] ) ){
+            require 'views/partner/Layouts/navigation.php';
         }
         
         # content
@@ -106,7 +106,7 @@ class View {
 
         if ($this->theme == 'manage') {
 
-            if( !empty($this->me['agent_id']) ){
+            if( !empty($this->me['partner_id']) ){
                 $this->elem('body')->addClass('balance'); 
             }
             else{

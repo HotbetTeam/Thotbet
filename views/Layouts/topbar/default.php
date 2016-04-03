@@ -76,7 +76,7 @@
 			$pagenav[] = array('key'=>'sportOnline', 'text'=>'Sport Online', 'url'=>URL.'sport/online');
 			$pagenav[] = array('key'=>'slot', 'text'=>'Slot Machine', 'url'=>URL.'slot');
 			$pagenav[] = array('key'=>'promotion', 'text'=>'Promotion', 'url'=>URL.'promotion');
-			$pagenav[] = array('key'=>'agent', 'text'=>'Agent', 'url'=>URL.'agent');
+			$pagenav[] = array('key'=>'partner', 'text'=>'Partner', 'url'=>URL.'partner');
 			$pagenav[] = array('key'=>'join', 'text'=>'Join us', 'url'=>URL.'join');
 
 			/*$pagenav[] = array('key'=>'home', 'text'=>'Casino', 'url'=>URL);
@@ -97,10 +97,4 @@
 		</div>
 	</div>
 
-</div>
-
-
-<div class="slider-wrapper">
-	<img class="chips" id="chips" src="<?=IMAGES?>casino/chips.png?ver8">
-	<!-- <img class="roulette" src="http://localhost/app/hotbat/public/images/casino/roulette.png?ver8"> -->
 </div>

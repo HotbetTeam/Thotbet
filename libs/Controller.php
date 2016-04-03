@@ -56,8 +56,8 @@ class Controller {
         if (Cookie::get(COOKIE_KEY_ADMIN)) {
             $me = $this->model->getUser( Cookie::get(COOKIE_KEY_ADMIN) );
         }
-        else if(Cookie::get(COOKIE_KEY_AGENT)){
-            $me = $this->model->query('agent')->get(Cookie::get(COOKIE_KEY_AGENT));
+        else if(Cookie::get(COOKIE_KEY_PARTNER)){
+            $me = $this->model->query('partner')->get(Cookie::get(COOKIE_KEY_PARTNER));
         }
         else if (Cookie::get(COOKIE_KEY)) {
             $me = $this->model->query('member')->get(Cookie::get(COOKIE_KEY));
@@ -72,8 +72,8 @@ class Controller {
             if (Cookie::get(COOKIE_KEY_ADMIN)) {
                 Cookie::set(COOKIE_KEY_ADMIN, $this->me['user_id'], time() + (86400 * 30));
             }
-            else if(Cookie::get(COOKIE_KEY_AGENT)){
-                Cookie::set(COOKIE_KEY_AGENT, $this->me['agent_id'], time() + (86400 * 30));
+            else if(Cookie::get(COOKIE_KEY_PARTNER)){
+                Cookie::set(COOKIE_KEY_PARTNER, $this->me['partner_id'], time() + (86400 * 30));
             }
             else if (Cookie::get(COOKIE_KEY)) {
                 Cookie::set(COOKIE_KEY, $this->me['m_id'], time() + (86400 * 30));
@@ -118,8 +118,8 @@ class Controller {
 
                 if (!empty($id)) {
 
-                    if(Cookie::get(COOKIE_KEY_AGENT)){
-                        Cookie::clear( COOKIE_KEY_AGENT );
+                    if(Cookie::get(COOKIE_KEY_PARTNER)){
+                        Cookie::clear( COOKIE_KEY_PARTNER );
                     }
 
                     if (Cookie::get(COOKIE_KEY)) {

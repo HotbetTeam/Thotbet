@@ -23,7 +23,7 @@ class Member_Table extends Model {
                         , m_level_id as level_id
                         , lev_name as level_name
                         , m_note as note
-                        , m_agent_id as agent_id
+                        , m_partner_id as partner_id
                         , m_conversation_key_id as conversation_key_id";
 
     public $_table = "member m INNER JOIN member_level l ON m_level_id=l.lev_id";
@@ -114,8 +114,8 @@ class Member_Table extends Model {
         }
 
 
-        if( !empty($data['agent_id']) ){
-            $data['agent'] = $this->query('agent')->get( $data['agent_id'] );
+        if( !empty($data['partner_id']) ){
+            $data['partner'] = $this->query('partner')->get( $data['partner_id'] );
         }
 
         // $data['point_str'] = round($data['point'], 0, PHP_ROUND_HALF_DOWN);
@@ -263,11 +263,11 @@ class Member_Table extends Model {
         $this->db->insert('member', $data);
         $data['m_id'] = $this->db->lastInsertId();
 
-        // เพิ่ม โดย Link Agent
-        if( Cookie::get('Agentredirect') && !empty($data['m_id']) ){
+        // เพิ่ม โดย Link Partner
+        if( Cookie::get('partner_redirect') && !empty($data['m_id']) ){
 
-            $this->query('agent')->joinMember(Cookie::get('Agentredirect'), $data['m_id']);
-            Cookie::clear('Agentredirect');
+            $this->query('partner')->joinMember(Cookie::get('partner_redirect'), $data['m_id']);
+            Cookie::clear('partner_redirect');
         }
     }
     public function update($id, $data) {

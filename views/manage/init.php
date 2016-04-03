@@ -32,3 +32,14 @@ $menu[] = array(
 		)
 	)
 );
+
+$menu[] = array(
+	'text' => 'Partner',
+	'sub' => array( 0=>
+		array(
+			'text' => 'Banner',
+			'key' => 'banner',
+			'url' => URL.'manage/partner/banner'
+		)
+	)
+);

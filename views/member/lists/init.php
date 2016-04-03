@@ -16,7 +16,7 @@ if( $this->status!='verify' ){
 	$title[] = array('key'=>'number', 'text'=>'แต้มแสดง', 'sort'=>'m_point_show');
 }
 
-$title[] = array('key' => 'text', 'text' => 'Agent', 'sort' => 'm_agent_id');
+$title[] = array('key' => 'text', 'text' => 'Partner', 'sort' => 'm_partner_id');
 $title[] = array('key'=>'action', 'text'=>'');
 
 $this->tabletitle = $title;

@@ -19,8 +19,9 @@ define('WWW_LIBS', ROOT . DS . "libs" . DS);
 define('WWW_APP', WWW_LIBS. 'app'. DS);
 define('WWW_DOCS', ROOT . DS . "public". DS. 'docs' . DS);
 define('WWW_VIEW', ROOT . DS . 'views' . DS);
-define('WWW_IMAGES_AVATAR', ROOT . DS . 'public' . DS. 'images' . DS . 'avatar' . DS);
-define('WWW_IMAGES_PRODUCTS', ROOT . DS . 'public' . DS. 'images' . DS . 'products' . DS);
+define('WWW_IMAGES', ROOT . DS . 'public' . DS. 'images' . DS );
+define('WWW_IMAGES_AVATAR', WWW_IMAGES. 'avatar' . DS);
+define('WWW_IMAGES_PRODUCTS', WWW_IMAGES. 'products' . DS);
 
 define('LIBS', 'libs/');
 define('DOCS', URL . 'public/docs/');
@@ -29,7 +30,7 @@ define('JS', URL . 'public/js/');
 define('IMAGES', URL . 'public/images/');
 define('IMAGES_PRODUCTS', IMAGES . 'products/');
 define('COOKIE_KEY', 'u_id');
-define('COOKIE_KEY_AGENT', 'agenid');
+define('COOKIE_KEY_PARTNER', 'p_id');
 define('COOKIE_KEY_ADMIN', 'a_id');
 
 // The sitewide hashkey, do not change this because its used for passwords!

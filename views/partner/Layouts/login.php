@@ -4,25 +4,22 @@ $f = new Form();
 $form = $f->create()
     
     // attr, options
-    ->addClass('login-form-container form-insert form-large')
+    ->addClass('login-form-container form-insert form-large js-submit-form')
     ->method('post')
-    ->url(URL.'manage')
+    ->url(URL.'partner/login')
 
     // set field
     ->field("email")
-        ->placeholder("Username")
         ->addClass('inputtext')
         ->required(true)
         ->autocomplete("off")
-        ->value( !empty($this->post['email'])? $this->post['email'] : '' )
-        ->notify( !empty($this->error['email']) ? $this->error['email'] : '' )
+        ->placeholder("Phone or Email")
 
     ->field("pass")
         ->type('password')
         ->required(true)
         ->addClass('inputtext')
-        ->placeholder("Password")
-        ->notify( !empty($this->error['pass']) ? $this->error['pass'] : '' );
+        ->placeholder("Password");
 
 
     if( !empty($this->captcha) ){
@@ -38,16 +35,20 @@ $form = $f->create()
         : '' 
     )
 
-    ->hr('<input type="hidden" autocomplete="off" value="1" name="path_admin">' )
-
     ->submit()
-        ->addClass('btn btn-blue btn-large')
-        ->value('เข้าสู่ระบบ');
+        ->addClass('btn btn-blue btn-submit btn-large')
+        
+        ->value('Login')
+
+    ->button()
+        ->addClass('btn btn-link btn-large fsm or')
+        ->attr('href', URL.'partner/register')
+        ->value('Or Register');
 
 ?>
 
-<div class="bgs">
-    <div class="bg" style="background-image: url(<?=IMAGES?>carousel/c4.jpg);display: block;"></div>
+<div class="bgs o">
+    <div class="bg" style="background-image: url(<?=IMAGES?>carousel/c10.jpg);display: block;"></div>
 </div>
 
 <div class="section">
@@ -55,16 +56,16 @@ $form = $f->create()
 
         <div class="login-header-bar login-logo">
             <div class="text">
-                <h2 >Login To Admin<a href="<?=URL?>"><i class="icon-home mrs"></i>หน้าแรก</a></h2>
+                <h2>Partner - <span><?=PAGE_TITLE?></span><a href="<?=URL?>partner" style="color:#fff"><i class="icon-home mrs"></i>Home</a></h2>
             </div>
-            <div class="subtext mvm"><span><?=PAGE_TITLE?></span></div>
+            <div class="subtext"><?=PAGE_ADDRESS?></div>
         </div>
 
         <div class="login-container-wrapper">
 
             <div class="login-container">
                 
-                <div class="login-title">Login</div>
+                <div class="login-title">Login Partner</div>
 
                 <?=$form->html()?>
             

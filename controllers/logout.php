@@ -38,11 +38,11 @@ class Logout extends Controller {
         header('location:' . $url);
     }
 
-    public function agent() {
-        $url = URL.'agent';
+    public function partner() {
+        $url = URL.'partner';
 
         if( $this->format == 'json' ){
-            $this->view->render('agent/dialog/confirm_logout');
+            $this->view->render('partner/dialog/confirm_logout');
             exit;
         }
 
@@ -54,7 +54,7 @@ class Logout extends Controller {
             ? $_REQUEST['next']
             : $url;
 
-        Cookie::clear( COOKIE_KEY_AGENT );
+        Cookie::clear( COOKIE_KEY_PARTNER );
         header('location:' . $url);
 
     }
